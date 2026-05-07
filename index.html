@@ -1908,7 +1908,6 @@
           <label class="auth-label" for="contactMessage">mesaj</label>
           <textarea class="field" id="contactMessage" required minlength="20" maxlength="2000" placeholder="Talebini net yaz. İlgili firma, sayfa veya yorum varsa bağlantı/başlık bilgisini ekle. Kişisel veri ve gereksiz özel bilgi paylaşma."></textarea>
 
-          <p class="contact-hint">Bu form e-posta adresi göstermez. Mesajlar Supabase içinde <strong>contact_messages</strong> tablosuna kaydedilir ve içeriden takip edilir.</p>
 
           <button class="auth-submit" type="submit">mesajı gönder</button>
         </form>
@@ -2846,7 +2845,7 @@
       setContactStatus("", "");
 
       if(!supa){
-        setContactStatus("error", "Supabase bağlantısı yok. Canlı kayıt için yapılandırma kontrol edilmeli.");
+        setContactStatus("error", "Mesaj şu anda gönderilemiyor. Lütfen daha sonra tekrar dene.");
         return;
       }
 
@@ -2878,13 +2877,13 @@
 
       if(error){
         console.error(error);
-        setContactStatus("error", "Mesaj kaydedilemedi. contact_messages tablosu ve RLS insert policy kontrol edilmeli.");
+        setContactStatus("error", "Mesaj gönderilemedi. Lütfen daha sonra tekrar dene.");
         return;
       }
 
       contactForm.reset();
       populateContactSubtopics();
-      setContactStatus("success", "Mesaj alındı. Canlı sistemde Supabase contact_messages tablosuna kaydedildi.");
+      setContactStatus("success", "Mesajınız alındı. Teşekkürler.");
       showToast("iletişim mesajı kaydedildi.");
     }
 
