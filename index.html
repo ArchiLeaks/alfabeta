@@ -1508,7 +1508,7 @@
       <div class="auth-head">
         <div>
           <h2 id="authTitle">üyelik</h2>
-          <p>Kayıt ol, mail doğrulama kodunu onayla, sonra giriş yap.</p>
+          <p>Kayıt ol, mailine gelen doğrulama linkine tıkla, sonra giriş yap.</p>
         </div>
         <button class="close-modal" type="button" id="closeLogin" aria-label="Popup kapat">×</button>
       </div>
@@ -1551,19 +1551,16 @@
             <label class="auth-label" for="registerPasswordRepeat">şifre tekrarı</label>
             <input class="auth-input" id="registerPasswordRepeat" type="password" placeholder="şifreyi tekrar yaz" autocomplete="new-password" minlength="6" required />
 
-            <button class="auth-submit" type="submit">kayıt ol ve kod gönder</button>
+            <button class="auth-submit" type="submit">kayıt ol ve doğrulama linki gönder</button>
           </form>
 
-          <form class="auth-form otp-area" id="verifyForm">
-            <label class="auth-label" for="verifyCode">mail doğrulama kodu</label>
-            <input class="auth-input" id="verifyCode" type="text" inputmode="numeric" maxlength="6" placeholder="6 haneli kod" />
-            <p class="auth-help">Kod onaylanmadan giriş yapılamaz.</p>
-            <button class="auth-submit" type="submit">kodu onayla</button>
-          </form>
+          <div class="auth-success" id="mailConfirmInfo">
+            Mailinize gönderilen link ile hesabınızı doğrulayın ve sonra giriş yapın.
+          </div>
         </section>
 
         <div class="auth-note">
-          Supabase bağlantısı aktifse kayıt, giriş ve veri gönderimi Supabase Auth + Postgres üzerinden çalışır. Kod doğrulama ekranı için Supabase email OTP şablonunun token gönderecek şekilde ayarlanması gerekir.
+          Supabase bağlantısı aktifse kayıt, giriş ve veri gönderimi Supabase Auth + Postgres üzerinden çalışır. Kayıttan sonra hesabını mailine gelen doğrulama linkiyle onaylaman gerekir.
         </div>
       </div>
     </div>
@@ -2262,7 +2259,6 @@
 
     const loginForm = $("loginForm");
     const registerForm = $("registerForm");
-    const verifyForm = $("verifyForm");
 
     const loginError = $("loginError");
     const registerError = $("registerError");
@@ -2307,9 +2303,6 @@
       loginModal.classList.remove("show");
     }
 
-    function createFakeVerificationCode(){
-      return String(Math.floor(100000 + Math.random() * 900000));
-    }
 
     if(openLogin) openLogin.addEventListener("click", openAuthModal);
     if(bottomLogin) bottomLogin.addEventListener("click", e=>{ e.preventDefault(); openAuthModal(); });
@@ -2377,47 +2370,12 @@
         authState.verified = Boolean(data.session);
         authState.loggedIn = Boolean(data.session);
 
-        $("verifyForm").classList.add("show");
-        setSuccess(registerSuccess, "Kayıt isteği Supabase'e gönderildi. Supabase email ayarına göre doğrulama linki veya OTP kodu mailine gelir. Kod geldiyse aşağıya gir; link geldiyse maildeki linke tıkla.");
-        showToast("kayıt alındı; email doğrulaması bekleniyor.");
-        updateSalaryAccess();
-      });
-    }
-
-    if(verifyForm){
-      verifyForm.addEventListener("submit", async e=>{
-        e.preventDefault();
-        setError(registerError, "");
-
-        const code = $("verifyCode").value.trim();
-        const email = authState.registeredEmail || $("registerEmail").value.trim().toLocaleLowerCase("tr-TR");
-
-        if(!supa){
-          setError(registerError, "Supabase bağlantısı yapılandırılmamış.");
-          return;
-        }
-
-        if(!email || !code){
-          setError(registerError, "Email ve doğrulama kodu gerekli.");
-          return;
-        }
-
-        const { data, error } = await supa.auth.verifyOtp({ email, token: code, type: "signup" });
-
-        if(error){
-          setError(registerError, "Kod doğrulanamadı. Supabase email şablonun link gönderiyorsa kod yerine maildeki linki kullanman gerekir.");
-          return;
-        }
-
-        const user = data.user || (data.session && data.session.user);
-        authState.userId = user ? user.id : authState.userId;
-        authState.verified = true;
-        authState.loggedIn = Boolean(data.session);
-        setSuccess(registerSuccess, "Email doğrulandı. Artık giriş yapabilirsin.");
-        showToast("email doğrulandı; giriş yapabilirsin.");
+        setSuccess(registerSuccess, "Kayıt isteği Supabase'e gönderildi. Mailinize gönderilen link ile hesabınızı doğrulayın ve sonra giriş yapın.");
+        const mailConfirmInfo = $("mailConfirmInfo");
+        if(mailConfirmInfo) mailConfirmInfo.classList.add("show");
+        showToast("kayıt alındı; doğrulama linki mailine gönderildi.");
         setAuthMode("login");
         $("loginEmail").value = email;
-        $("loginPassword").focus();
         updateSalaryAccess();
       });
     }
