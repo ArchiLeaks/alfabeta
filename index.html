@@ -1356,19 +1356,10 @@
           <h2>entry gir</h2>
           <form class="form-grid" id="entryForm">
             <select class="field" id="employerSelect" required></select>
-            <select class="field" required>
-              <option value="">pozisyon seç</option>
-              <option>Yeni Mezun Mimar</option>
-              <option>Mimar</option>
-              <option>Kıdemli Mimar</option>
-              <option>Proje Mimarı</option>
-              <option>Teknik Ofis Mimarı</option>
-              <option>Şantiye Mimarı</option>
-              <option>Tasarım Mimarı</option>
-              <option>BIM Uzmanı</option>
-              <option>Stajyer</option>
-            </select>
-            <select class="field" required>
+            <input class="field salary-custom-field" id="entryEmployerCustom" type="text" placeholder="yeni firma adı yaz" />
+            <select class="field" id="entryPositionSelect" required></select>
+            <input class="field salary-custom-field" id="entryPositionCustom" type="text" placeholder="yeni pozisyon adı yaz" />
+            <select class="field" id="entryRelationType" required>
               <option value="">ilişki tipi</option>
               <option>Çalışan</option>
               <option>Eski çalışan</option>
@@ -1726,6 +1717,7 @@
     const $ = (id)=>document.getElementById(id);
     const topicList=$("topicList"), leftTabs=$("leftTabs"), mobileTopics=$("mobileTopics");
     const topicTitle=$("topicTitle"), topicSub=$("topicSub"), employerSelect=$("employerSelect");
+    const entryEmployerCustom=$("entryEmployerCustom"), entryPositionSelect=$("entryPositionSelect"), entryPositionCustom=$("entryPositionCustom"), entryRelationType=$("entryRelationType");
     const salaryEmployer=$("salaryEmployer"), salaryEmployerCustom=$("salaryEmployerCustom"), salaryPosition=$("salaryPosition"), salaryPositionCustom=$("salaryPositionCustom");
     const salaryExperience=$("salaryExperience"), salaryCity=$("salaryCity"), salaryMonth=$("salaryMonth"), salaryYear=$("salaryYear");
     const salaryForm=$("salaryForm"), salaryDataList=$("salaryDataList");
@@ -1931,23 +1923,32 @@
       topicTitle.textContent=e[0];
       topicSub.textContent=`${e[1]} — ${e[2]} · başlık tipi: işveren deneyimi · ${e[4]} katkı adayı`;
       document.querySelectorAll(".mobile-topic").forEach(x=>x.classList.toggle("active", x.textContent.includes(e[0])));
-      if(employerSelect) employerSelect.value=e[0];
+      if(employerSelect && employerSelect.value !== "__new__") employerSelect.value=e[0];
+      toggleCustomEntryFields();
       renderApprovedEntries();
     }
 
     function renderSelect(){
       const employerOptions = `<option value="">firma seç</option>` + employers.map(e=>`<option value="${e[0]}">${e[0]} — ${e[1]}</option>`).join("");
-      if(employerSelect) employerSelect.innerHTML = employerOptions;
+      const customEmployerOptions = customSalaryEmployers.map(name=>`<option value="${name}">${name} — kullanıcı girişi</option>`).join("");
+      const newEmployerOption = `<option value="__new__">+ yeni firma gir</option>`;
+
+      if(employerSelect) employerSelect.innerHTML = employerOptions + customEmployerOptions + newEmployerOption;
 
       if(salaryEmployer){
-        const customOptions = customSalaryEmployers.map(name=>`<option value="${name}">${name} — kullanıcı girişi</option>`).join("");
-        salaryEmployer.innerHTML = employerOptions + customOptions + `<option value="__new__">+ yeni firma gir</option>`;
+        salaryEmployer.innerHTML = employerOptions + customEmployerOptions + newEmployerOption;
+      }
+
+      const basePositions = salaryPositions.map(p=>`<option value="${p}">${p}</option>`).join("");
+      const customPositionOptions = customSalaryPositions.map(p=>`<option value="${p}">${p} — kullanıcı girişi</option>`).join("");
+      const newPositionOption = `<option value="__new__">+ yeni pozisyon gir</option>`;
+
+      if(entryPositionSelect){
+        entryPositionSelect.innerHTML = `<option value="">pozisyon seç</option>` + basePositions + customPositionOptions + newPositionOption;
       }
 
       if(salaryPosition){
-        const basePositions = salaryPositions.map(p=>`<option value="${p}">${p}</option>`).join("");
-        const customPositions = customSalaryPositions.map(p=>`<option value="${p}">${p} — kullanıcı girişi</option>`).join("");
-        salaryPosition.innerHTML = `<option value="">pozisyon seç</option>` + basePositions + customPositions + `<option value="__new__">+ yeni pozisyon gir</option>`;
+        salaryPosition.innerHTML = `<option value="">pozisyon seç</option>` + basePositions + customPositionOptions + newPositionOption;
       }
 
       if(salaryExperience){
@@ -2008,6 +2009,22 @@
       const [year, month] = String(period || "").split("-");
       const found = salaryMonths.find(m=>m[0] === month);
       return found ? `${found[1]} ${year}` : period;
+    }
+
+    function toggleCustomEntryFields(){
+      const employerIsNew = employerSelect && employerSelect.value === "__new__";
+      if(entryEmployerCustom){
+        entryEmployerCustom.classList.toggle("show", Boolean(employerIsNew));
+        entryEmployerCustom.required = Boolean(employerIsNew);
+        if(!employerIsNew) entryEmployerCustom.value = "";
+      }
+
+      const positionIsNew = entryPositionSelect && entryPositionSelect.value === "__new__";
+      if(entryPositionCustom){
+        entryPositionCustom.classList.toggle("show", Boolean(positionIsNew));
+        entryPositionCustom.required = Boolean(positionIsNew);
+        if(!positionIsNew) entryPositionCustom.value = "";
+      }
     }
 
     function toggleCustomSalaryFields(){
@@ -2143,6 +2160,9 @@
       renderTopics();
     });
 
+    if(employerSelect) employerSelect.addEventListener("change", toggleCustomEntryFields);
+    if(entryPositionSelect) entryPositionSelect.addEventListener("change", toggleCustomEntryFields);
+
     $("searchForm").addEventListener("submit",e=>{
       e.preventDefault();
       const list=filtered();
@@ -2160,15 +2180,35 @@
       }
 
       const form = e.target;
-      const employerName = form.querySelector("#employerSelect").value;
-      const positionTitle = form.querySelectorAll("select")[1].value;
-      const relationType = form.querySelectorAll("select")[2].value;
+      const selectedEmployer = employerSelect ? employerSelect.value : "";
+      const selectedPosition = entryPositionSelect ? entryPositionSelect.value : "";
+      const employerName = selectedEmployer === "__new__" ? (entryEmployerCustom ? entryEmployerCustom.value.trim() : "") : selectedEmployer;
+      const positionTitle = selectedPosition === "__new__" ? (entryPositionCustom ? entryPositionCustom.value.trim() : "") : selectedPosition;
+      const relationType = entryRelationType ? entryRelationType.value : "";
       const body = form.querySelector("textarea").value.trim();
       const rulesAccepted = form.querySelector('input[type="checkbox"]').checked;
+
+      if(!employerName){
+        showToast("firma seç veya yeni firma adı yaz.");
+        return;
+      }
+
+      if(!positionTitle){
+        showToast("pozisyon seç veya yeni pozisyon adı yaz.");
+        return;
+      }
 
       if(!body || !rulesAccepted){
         showToast("yorum metni ve kural onayı zorunlu.");
         return;
+      }
+
+      if(selectedEmployer === "__new__" && !customSalaryEmployers.some(name=>norm(name) === norm(employerName)) && !employers.some(e=>norm(e[0]) === norm(employerName))){
+        customSalaryEmployers.push(employerName);
+      }
+
+      if(selectedPosition === "__new__" && !customSalaryPositions.some(name=>norm(name) === norm(positionTitle)) && !salaryPositions.some(name=>norm(name) === norm(positionTitle))){
+        customSalaryPositions.push(positionTitle);
       }
 
       if(!supa){
@@ -2202,6 +2242,9 @@
       await auditSubmission("entry", data.id, payload);
       showToast("entry Supabase'e kaydedildi ve moderasyon kuyruğuna alındı.");
       form.reset();
+      renderSelect();
+      if(employerSelect) employerSelect.value = state.current[0];
+      toggleCustomEntryFields();
     });
 
     if(salaryEmployer) salaryEmployer.addEventListener("change", toggleCustomSalaryFields);
