@@ -667,6 +667,145 @@
       border-top:1px solid #dfdfd8;
     }
 
+    .footer-main{
+      display:grid;
+      gap:10px;
+    }
+
+    .footer-menu{
+      margin-top:8px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .footer-menu a{
+      color:#444;
+      font-weight:800;
+    }
+
+    .footer-menu a:hover{
+      color:var(--accentDark);
+      text-decoration:underline;
+      text-underline-offset:2px;
+    }
+
+    .contact-modal{
+      width:min(100%,640px);
+    }
+
+    .contact-form{
+      display:grid;
+      gap:10px;
+    }
+
+    .contact-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+    }
+
+    .contact-hint{
+      margin:0;
+      color:#666;
+      font-size:12px;
+      line-height:1.45;
+    }
+
+    .contact-status{
+      display:none;
+      border-radius:8px;
+      padding:9px;
+      font-size:12px;
+      font-weight:750;
+    }
+
+    .contact-status.show{display:block}
+    .contact-status.success{
+      border:1px solid #f0d783;
+      background:var(--accentSoft);
+      color:#5c4b10;
+    }
+    .contact-status.error{
+      border:1px solid #f0b4aa;
+      background:#fff0ed;
+      color:#8a1f12;
+    }
+
+    @media(min-width:620px){
+      .contact-grid{grid-template-columns:1fr 1fr}
+    }
+
+
+    .footer-info-modal{
+      width:min(100%,760px);
+    }
+
+    .info-content{
+      display:grid;
+      gap:14px;
+      color:#444;
+      font-size:13px;
+    }
+
+    .info-content h3{
+      margin:0 0 6px;
+      color:#222;
+      font-size:15px;
+    }
+
+    .info-content p{
+      margin:0 0 8px;
+      color:#555;
+    }
+
+    .info-content ul{
+      margin:0;
+      padding-left:18px;
+    }
+
+    .info-content li{
+      margin:5px 0;
+    }
+
+    .info-box{
+      border:1px solid #e2e2da;
+      background:#fbfbf7;
+      border-radius:9px;
+      padding:11px;
+    }
+
+    .info-grid{
+      display:grid;
+      gap:10px;
+    }
+
+    .cookie-options{
+      display:grid;
+      gap:9px;
+    }
+
+    .cookie-row{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      border:1px solid #e2e2da;
+      background:#fbfbf7;
+      border-radius:9px;
+      padding:10px;
+    }
+
+    .cookie-row input{margin-top:3px;accent-color:var(--accent2)}
+
+    .cookie-actions{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .cookie-actions .btn{padding:8px 10px}
+
     .bottom-bar{
       position:fixed;
       left:0;right:0;bottom:0;
@@ -1545,13 +1684,20 @@
   </section>
 
   <footer class="footer">
-    <strong>ArchiLeaks</strong> statik prototip. Canlı sürümde Supabase Auth, moderasyon kuyruğu, firma doğrulama sistemi, KVKK metni, çerez yönetimi ve reklam onay akışı gerekir.
-    <nav aria-label="Alt bağlantılar" style="margin-top:8px;display:flex;gap:12px;flex-wrap:wrap">
-      <a href="#gundem">gündem</a>
-      <a href="#salaryPage">maaşlar</a>
-      <a href="#yaz">entry gir</a>
-      <a href="#" id="footerRules">yorum kuralları</a>
-    </nav>
+    <div class="footer-main">
+      <div><strong>ArchiLeaks</strong> statik prototip. Canlı sürümde Supabase Auth, moderasyon kuyruğu, firma doğrulama sistemi, KVKK metni, çerez yönetimi ve reklam onay akışı gerekir.</div>
+      <nav class="footer-menu" aria-label="Alt bağlantılar">
+        <a href="#" id="footerContact">iletişim</a>
+        <a href="#" data-footer-page="transparency">şeffaflık raporları</a>
+        <a href="#" id="footerRules">sözlük kuralları</a>
+        <a href="#" data-footer-page="ads">reklam</a>
+        <a href="#" data-footer-page="career">kariyer</a>
+        <a href="#" data-footer-page="terms">kullanım koşulları</a>
+        <a href="#" data-footer-page="privacy">gizlilik politikamız</a>
+        <a href="#" data-footer-page="cookies">çerez tercihleri</a>
+        <a href="#" data-footer-page="faq">sss</a>
+      </nav>
+    </div>
   </footer>
 
   <nav class="bottom-bar">
@@ -1648,7 +1794,7 @@
             <ul class="rule-list">
               <li>
                 <span class="rule-main">Kişi adı, soyadı, telefon, email, adres veya özel bilgi paylaşma.</span>
-                <span class="rule-example">Örnek: “Proje müdürü Can Çetin şöyle yaptı” yerine “Proje yönetimi tarafında iletişim zayıftı” yaz.</span>
+                <span class="rule-example">Örnek: “X isimli proje müdürü şöyle yaptı” yerine “Proje yönetimi tarafında iletişim zayıftı” yaz.</span>
               </li>
               <li>
                 <span class="rule-main">Bir kişiyi hedef alan aşağılayıcı, küçük düşürücü veya saldırgan ifadeler kullanma.</span>
@@ -1656,7 +1802,7 @@
               </li>
               <li>
                 <span class="rule-main">Kanıtlanması mümkün olmayan ağır iddiaları kesin bilgi gibi yazma.</span>
-                <span class="rule-example">Örnek: “Maaşları bilerek ödemiyorlar” yerine “Benim dönemimde ödeme takviminde hep gecikmeler yaşandı” yaz.</span>
+                <span class="rule-example">Örnek: “Maaşları bilerek ödemiyorlar” yerine “Benim dönemimde ödeme takviminde gecikmeler yaşandı” yaz.</span>
               </li>
               <li>
                 <span class="rule-main">Şirket içi gizli belge, sözleşme, bordro veya ekran görüntüsü paylaşma.</span>
@@ -1700,7 +1846,7 @@
             <ul class="rule-list">
               <li>
                 <span class="rule-main">Yorumlar önce kontrol edilir, sonra yayınlanır.</span>
-                <span class="rule-example">Örnek: Kişi adı veya özel bilgi varsa yorum yayına alınmadan önce temizlenir yada kısaltılır.</span>
+                <span class="rule-example">Örnek: Kişi adı veya özel bilgi varsa yorum yayına alınmadan önce temizlenir.</span>
               </li>
               <li>
                 <span class="rule-main">Gerekirse yorum kısaltılır, düzenleme istenir veya yayınlanmaz.</span>
@@ -1712,13 +1858,76 @@
               </li>
               <li>
                 <span class="rule-main">Skor ve istatistikler en az 5 doğrulanmış katkıdan sonra gösterilir.</span>
-                <span class="rule-example">Örnek: Bir firma için 5 maaş girdisi varsa veri saklanır ama ortalama maaş hemen gösterilmez.</span>
+                <span class="rule-example">Örnek: Bir firma için 2 maaş girdisi varsa veri saklanır ama ortalama maaş hemen gösterilmez.</span>
               </li>
             </ul>
           </section>
 
-          <div class="rules-motto">Kural basit: isim verme yada baş harflerini kullan, sistemi göm. Dedikodun varsa da kanıt gibi, deneyim gibi anlat.</div>
+          <div class="rules-motto">Kural basit: kişiyi değil sistemi anlat. Dedikodu değil deneyim bırak.</div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="contactModal" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
+    <div class="auth-modal contact-modal">
+      <div class="auth-head">
+        <div>
+          <h2 id="contactTitle">bizimle iletişime geç</h2>
+          <p>Talebini konu, alt konu ve mesaj olarak gönder. Kayıt doğrudan moderasyon kuyruğuna düşer.</p>
+        </div>
+        <button class="close-modal" type="button" id="closeContact" aria-label="İletişim popup kapat">×</button>
+      </div>
+
+      <div class="auth-body">
+        <form class="contact-form" id="contactForm">
+          <div class="contact-status" id="contactStatus"></div>
+
+          <div class="contact-grid">
+            <div>
+              <label class="auth-label" for="contactMainTopic">ana konu</label>
+              <select class="auth-input" id="contactMainTopic" required>
+                <option value="">ana konu seç</option>
+                <option value="moderasyon">moderasyon</option>
+                <option value="hukuk">hukuk</option>
+                <option value="reklam">reklam</option>
+                <option value="kariyer">kariyer</option>
+                <option value="teknik">teknik sorun</option>
+                <option value="oneri">öneri / geri bildirim</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="auth-label" for="contactSubTopic">alt konu</label>
+              <select class="auth-input" id="contactSubTopic" required>
+                <option value="">önce ana konu seç</option>
+              </select>
+            </div>
+          </div>
+
+          <label class="auth-label" for="contactMessage">mesaj</label>
+          <textarea class="field" id="contactMessage" required minlength="20" maxlength="2000" placeholder="Talebini net yaz. İlgili firma, sayfa veya yorum varsa bağlantı/başlık bilgisini ekle. Kişisel veri ve gereksiz özel bilgi paylaşma."></textarea>
+
+          <p class="contact-hint">Bu form e-posta adresi göstermez. Mesajlar Supabase içinde <strong>contact_messages</strong> tablosuna kaydedilir ve içeriden takip edilir.</p>
+
+          <button class="auth-submit" type="submit">mesajı gönder</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal-backdrop" id="footerInfoModal" role="dialog" aria-modal="true" aria-labelledby="footerInfoTitle">
+    <div class="auth-modal footer-info-modal">
+      <div class="auth-head">
+        <div>
+          <h2 id="footerInfoTitle">bilgi</h2>
+          <p id="footerInfoLead">ArchiLeaks bilgilendirme alanı.</p>
+        </div>
+        <button class="close-modal" type="button" id="closeFooterInfo" aria-label="Bilgi popup kapat">×</button>
+      </div>
+      <div class="auth-body">
+        <div class="info-content" id="footerInfoContent"></div>
       </div>
     </div>
   </div>
@@ -2451,6 +2660,268 @@
     const closeRules = $("closeRules");
     const bottomRules = $("bottomRules");
     const footerRules = $("footerRules");
+    const contactModal = $("contactModal");
+    const footerContact = $("footerContact");
+    const closeContact = $("closeContact");
+    const footerInfoModal = $("footerInfoModal");
+    const footerInfoTitle = $("footerInfoTitle");
+    const footerInfoLead = $("footerInfoLead");
+    const footerInfoContent = $("footerInfoContent");
+    const closeFooterInfo = $("closeFooterInfo");
+    const contactForm = $("contactForm");
+    const contactMainTopic = $("contactMainTopic");
+    const contactSubTopic = $("contactSubTopic");
+    const contactMessage = $("contactMessage");
+    const contactStatus = $("contactStatus");
+
+    const contactSubtopics = {
+      moderasyon: ["yorum düzeltme", "yorum kaldırma", "firma sayfası inceleme", "yanlış bilgi bildirimi"],
+      hukuk: ["yayından kaldırma talebi", "kişisel veri talebi", "resmi başvuru", "itiraz / cevap hakkı"],
+      reklam: ["native reklam", "sağ kolon reklamı", "iş ilanı", "sponsorluk"],
+      kariyer: ["moderasyon", "ürün / tasarım", "yazılım", "iş ortaklığı"],
+      teknik: ["giriş / üyelik", "form hatası", "mobil görünüm", "veri görünmüyor"],
+      oneri: ["ürün önerisi", "yeni özellik", "firma ekleme", "genel geri bildirim"]
+    };
+
+    const footerPages = {
+      transparency: {
+        title: "şeffaflık raporları",
+        lead: "Platform verilerinin nasıl işlendiğini ve hangi eşiklerle yayınlandığını açıklarız.",
+        html: `
+          <div class="info-box">
+            <h3>yayın ilkesi</h3>
+            <p>ArchiLeaks, tekil kişileri hedef alan iddiaları değil; mimarlık sektöründeki çalışma koşullarını görünür kılmayı amaçlar.</p>
+            <ul>
+              <li>Firma skorları ve maaş ortalamaları en az 5 doğrulanmış katkıdan sonra gösterilir.</li>
+              <li>Yorumlar kişi adı, özel bilgi ve hedef gösterme açısından moderasyondan geçer.</li>
+              <li>Maaş verileri pozisyon, deneyim, şehir ve çalışma biçimi kırılımıyla değerlendirilir.</li>
+            </ul>
+          </div>
+          <div class="info-box">
+            <h3>rapor takvimi</h3>
+            <p>Canlı sürümde aylık sektör özeti, üç aylık maaş görünümü ve yıllık mimarlık çalışma koşulları raporu yayınlanacaktır.</p>
+          </div>
+        `
+      },
+      ads: {
+        title: "reklam",
+        lead: "Reklam alanları platform içeriğinden ayrılır ve kullanıcı deneyimini bozmadan yerleştirilir.",
+        html: `
+          <div class="info-box">
+            <h3>reklam alanları</h3>
+            <ul>
+              <li>Keşfet listesi içinde native reklam.</li>
+              <li>Firma detayında yorumlar öncesi native reklam.</li>
+              <li>Sağ kolon reklam / iş ilanı alanı.</li>
+            </ul>
+          </div>
+          <div class="info-box">
+            <h3>iletişim</h3>
+            <p>Reklam, sponsorlu içerik veya iş ilanı talebi için footer’daki iletişim formunda ana konu olarak <strong>reklam</strong> seç.</p>
+            <p>Reklamlar yorum, skor veya firma sıralamasını etkilemez.</p>
+          </div>
+        `
+      },
+      career: {
+        title: "kariyer",
+        lead: "ArchiLeaks büyüdükçe moderasyon, veri, ürün ve topluluk tarafında ekip kuracaktır.",
+        html: `
+          <div class="info-box">
+            <h3>açılacak roller</h3>
+            <ul>
+              <li>Topluluk ve moderasyon editörü</li>
+              <li>Veri analisti</li>
+              <li>Frontend geliştirici</li>
+              <li>Hukuk / KVKK danışmanı</li>
+              <li>Reklam ve iş ortaklıkları sorumlusu</li>
+            </ul>
+          </div>
+          <div class="info-box">
+            <h3>başvuru</h3>
+            <p>Kısa başvuru mesajı için footer’daki iletişim formunda ana konu olarak <strong>kariyer</strong> seç.</p>
+          </div>
+        `
+      },
+      terms: {
+        title: "kullanım koşulları",
+        lead: "Siteyi kullanan herkes bu kuralları kabul etmiş sayılır.",
+        html: `
+          <div class="info-box">
+            <h3>temel kurallar</h3>
+            <ul>
+              <li>Kişi adı, özel bilgi, hedef gösterme ve doğrulanması mümkün olmayan ağır iddia paylaşma.</li>
+              <li>Yorum ve maaş verilerinde kendi deneyimini esas al.</li>
+              <li>Platformu karalama, taciz, spam veya organize manipülasyon için kullanma.</li>
+              <li>ArchiLeaks gerekli gördüğü içeriği reddedebilir, düzenleme isteyebilir veya yayından kaldırabilir.</li>
+            </ul>
+          </div>
+          <div class="info-box">
+            <h3>sorumluluk</h3>
+            <p>Gönderdiğin içerikten sen sorumlusun. Platform, güvenli ve okunabilir yayın akışı için moderasyon yapar.</p>
+          </div>
+        `
+      },
+      privacy: {
+        title: "gizlilik politikamız",
+        lead: "Veri toplama amacı açık, sınırlı ve platform güvenliğiyle bağlantılı olmalıdır.",
+        html: `
+          <div class="info-box">
+            <h3>toplanan bilgiler</h3>
+            <ul>
+              <li>Email ve rumuz: hesap oluşturma ve giriş için.</li>
+              <li>Yorum ve maaş verileri: platform içeriği ve istatistik üretimi için.</li>
+              <li>IP, user-agent ve referrer: güvenlik, spam önleme ve kötüye kullanım incelemesi için.</li>
+            </ul>
+          </div>
+          <div class="info-box">
+            <h3>yayın ilkesi</h3>
+            <p>Email ve teknik kayıtlar herkese açık yayınlanmaz. Yorumlar moderasyondan sonra, kişi adı ve özel bilgi içermeyecek şekilde yayınlanır.</p>
+          </div>
+          <div class="info-box">
+            <h3>talepler</h3>
+            <p>Erişim, düzeltme veya silme talepleri için footer’daki iletişim formunda ana konu olarak <strong>hukuk</strong> seç.</p>
+          </div>
+        `
+      },
+      cookies: {
+        title: "çerez tercihleri",
+        lead: "Zorunlu çerezler site için gerekir; analitik ve reklam çerezleri tercihe bağlıdır.",
+        html: `
+          <div class="cookie-options">
+            <label class="cookie-row">
+              <input type="checkbox" checked disabled />
+              <span><strong>Zorunlu çerezler</strong><br />Oturum, güvenlik ve form davranışları için gerekir. Kapatılamaz.</span>
+            </label>
+            <label class="cookie-row">
+              <input type="checkbox" id="cookieAnalytics" />
+              <span><strong>Analitik çerezleri</strong><br />Hangi sayfaların kullanıldığını anlamaya yarar.</span>
+            </label>
+            <label class="cookie-row">
+              <input type="checkbox" id="cookieAds" />
+              <span><strong>Reklam çerezleri</strong><br />Reklam alanlarının ölçümlenmesi ve iyileştirilmesi için kullanılır.</span>
+            </label>
+          </div>
+          <div class="cookie-actions">
+            <button class="btn primary" type="button" id="saveCookiePrefs">tercihleri kaydet</button>
+            <button class="btn" type="button" id="rejectCookiePrefs">zorunlu dışındakileri kapat</button>
+          </div>
+        `
+      },
+      faq: {
+        title: "sss",
+        lead: "ArchiLeaks’in nasıl çalıştığına dair kısa cevaplar.",
+        html: `
+          <div class="info-grid">
+            <div class="info-box"><h3>Yorumum hemen yayınlanır mı?</h3><p>Hayır. Önce moderasyon kuyruğuna düşer, uygun bulunursa yayınlanır.</p></div>
+            <div class="info-box"><h3>Maaş verim tek başına görünür mü?</h3><p>Hayır. İstatistikler en az 5 doğrulanmış katkıdan sonra gösterilir.</p></div>
+            <div class="info-box"><h3>Firma cevap verebilir mi?</h3><p>Canlı sürümde firmalar düzeltme, açıklama ve itiraz kanalı üzerinden başvuru yapabilir.</p></div>
+            <div class="info-box"><h3>Kimliğim yayınlanır mı?</h3><p>Hayır. Email ve teknik kayıtlar kamuya açık alanda gösterilmez.</p></div>
+          </div>
+        `
+      }
+    };
+
+    function openContactModal(){
+      if(contactModal) contactModal.classList.add("show");
+    }
+
+    function closeContactModal(){
+      if(contactModal) contactModal.classList.remove("show");
+    }
+
+    function setContactStatus(type, message){
+      if(!contactStatus) return;
+      contactStatus.textContent = message || "";
+      contactStatus.className = `contact-status${message ? " show" : ""}${type ? ` ${type}` : ""}`;
+    }
+
+    function populateContactSubtopics(){
+      if(!contactMainTopic || !contactSubTopic) return;
+      const items = contactSubtopics[contactMainTopic.value] || [];
+      contactSubTopic.innerHTML = `<option value="">alt konu seç</option>` + items.map(item=>`<option value="${item}">${item}</option>`).join("");
+    }
+
+    async function submitContactMessage(e){
+      e.preventDefault();
+      setContactStatus("", "");
+
+      if(!supa){
+        setContactStatus("error", "Supabase bağlantısı yok. Canlı kayıt için yapılandırma kontrol edilmeli.");
+        return;
+      }
+
+      const mainTopic = contactMainTopic ? contactMainTopic.value : "";
+      const subTopic = contactSubTopic ? contactSubTopic.value : "";
+      const message = contactMessage ? contactMessage.value.trim() : "";
+
+      if(!mainTopic || !subTopic || message.length < 20){
+        setContactStatus("error", "Ana konu, alt konu ve en az 20 karakterlik mesaj gerekli.");
+        return;
+      }
+
+      const session = await getCurrentSession();
+      const payload = {
+        user_id: session && session.user ? session.user.id : null,
+        main_topic: mainTopic,
+        sub_topic: subTopic,
+        message,
+        page_path: location.pathname + location.hash,
+        status: "new"
+      };
+
+      const submitButton = contactForm ? contactForm.querySelector("button[type='submit']") : null;
+      if(submitButton) submitButton.disabled = true;
+
+      const { error } = await supa.from("contact_messages").insert(payload);
+
+      if(submitButton) submitButton.disabled = false;
+
+      if(error){
+        console.error(error);
+        setContactStatus("error", "Mesaj kaydedilemedi. contact_messages tablosu ve RLS insert policy kontrol edilmeli.");
+        return;
+      }
+
+      contactForm.reset();
+      populateContactSubtopics();
+      setContactStatus("success", "Mesaj alındı. Canlı sistemde Supabase contact_messages tablosuna kaydedildi.");
+      showToast("iletişim mesajı kaydedildi.");
+    }
+
+    function attachCookiePreferenceHandlers(){
+      const saved = JSON.parse(localStorage.getItem("archileaks_cookie_preferences") || "{}");
+      const analytics = $("cookieAnalytics");
+      const ads = $("cookieAds");
+      if(analytics) analytics.checked = Boolean(saved.analytics);
+      if(ads) ads.checked = Boolean(saved.ads);
+
+      const save = $("saveCookiePrefs");
+      const reject = $("rejectCookiePrefs");
+      if(save) save.onclick = ()=>{
+        localStorage.setItem("archileaks_cookie_preferences", JSON.stringify({ analytics: Boolean(analytics && analytics.checked), ads: Boolean(ads && ads.checked), savedAt: new Date().toISOString() }));
+        showToast("çerez tercihleri kaydedildi.");
+        closeFooterInfoModal();
+      };
+      if(reject) reject.onclick = ()=>{
+        localStorage.setItem("archileaks_cookie_preferences", JSON.stringify({ analytics:false, ads:false, savedAt: new Date().toISOString() }));
+        showToast("zorunlu dışındaki çerezler kapatıldı.");
+        closeFooterInfoModal();
+      };
+    }
+
+    function openFooterInfoModal(pageKey){
+      const page = footerPages[pageKey];
+      if(!page || !footerInfoModal || !footerInfoContent) return;
+      footerInfoTitle.textContent = page.title;
+      footerInfoLead.textContent = page.lead;
+      footerInfoContent.innerHTML = page.html;
+      footerInfoModal.classList.add("show");
+      if(pageKey === "cookies") attachCookiePreferenceHandlers();
+    }
+
+    function closeFooterInfoModal(){
+      if(footerInfoModal) footerInfoModal.classList.remove("show");
+    }
 
     function openRulesModal(){
       if(rulesModal) rulesModal.classList.add("show");
@@ -2463,7 +2934,31 @@
     if(openRules) openRules.addEventListener("click", openRulesModal);
     if(bottomRules) bottomRules.addEventListener("click", e=>{ e.preventDefault(); openRulesModal(); });
     if(footerRules) footerRules.addEventListener("click", e=>{ e.preventDefault(); openRulesModal(); });
+    if(footerContact) footerContact.addEventListener("click", e=>{ e.preventDefault(); openContactModal(); });
+    if(contactMainTopic) contactMainTopic.addEventListener("change", populateContactSubtopics);
+    if(contactForm) contactForm.addEventListener("submit", submitContactMessage);
+    populateContactSubtopics();
+    document.querySelectorAll("[data-footer-page]").forEach(link=>{
+      link.addEventListener("click", e=>{
+        e.preventDefault();
+        openFooterInfoModal(link.dataset.footerPage);
+      });
+    });
     if(closeRules) closeRules.addEventListener("click", closeRulesModal);
+    if(closeContact) closeContact.addEventListener("click", closeContactModal);
+    if(closeFooterInfo) closeFooterInfo.addEventListener("click", closeFooterInfoModal);
+
+    if(contactModal){
+      contactModal.addEventListener("click", e=>{
+        if(e.target === contactModal) closeContactModal();
+      });
+    }
+
+    if(footerInfoModal){
+      footerInfoModal.addEventListener("click", e=>{
+        if(e.target === footerInfoModal) closeFooterInfoModal();
+      });
+    }
 
     if(rulesModal){
       rulesModal.addEventListener("click", e=>{
@@ -2472,7 +2967,11 @@
     }
 
     document.addEventListener("keydown", e=>{
-      if(e.key === "Escape") closeRulesModal();
+      if(e.key === "Escape"){
+        closeRulesModal();
+        closeContactModal();
+        closeFooterInfoModal();
+      }
     });
 
     document.querySelectorAll(".bottom-bar a").forEach(a=>{
