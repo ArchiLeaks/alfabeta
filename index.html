@@ -1346,10 +1346,9 @@
           </div>
         </article>
 
-        <section class="approved-entry-panel" aria-label="Onaylanmış kullanıcı yorumları">
-          <h2>onaylanmış yorumlar</h2>
+        <section class="approved-entry-panel" aria-label="Kullanıcı yorumları">
           <div id="approvedEntries">
-            <div class="notice">Onaylanmış yorumlar yükleniyor.</div>
+            <div class="notice">Yorumlar yükleniyor.</div>
           </div>
         </section>
 
@@ -1774,7 +1773,7 @@
       const list = approvedEntriesData.filter(row=>norm(row.employer_name) === currentEmployer);
 
       if(!list.length){
-        approvedEntriesEl.innerHTML = `<div class="notice">Bu firma için henüz onaylanmış kullanıcı yorumu yok.</div>`;
+        approvedEntriesEl.innerHTML = `<div class="notice">Bu firma için henüz kullanıcı yorumu yok.</div>`;
         return;
       }
 
@@ -1810,7 +1809,7 @@
 
       if(error){
         console.error(error);
-        approvedEntriesEl.innerHTML = `<div class="notice">Onaylı yorumlar alınamadı. Supabase RLS select policy kontrol edilmeli.</div>`;
+        approvedEntriesEl.innerHTML = `<div class="notice">Yorumlar alınamadı. Supabase RLS select policy kontrol edilmeli.</div>`;
         return;
       }
 
