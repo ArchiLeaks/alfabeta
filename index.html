@@ -1,0 +1,2270 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <title>ArchiLeaks | Mimarlık Ofisleri, Maaşlar ve Çalışma Koşulları</title>
+  <meta name="description" content="ArchiLeaks; mimarlık ofisleri, inşaat şirketleri ve mimar çalıştıran işverenler için anonim deneyim, maaş, mülakat ve çalışma koşulu verilerini toplayan şeffaflık platformu prototipidir." />
+  <meta name="keywords" content="mimarlık maaşları, mimarlık ofisleri, mimar maaşı, mimarlık sektörü, çalışma koşulları, işveren deneyimi, anonim yorum, ArchiLeaks" />
+  <meta name="author" content="ArchiLeaks" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="theme-color" content="#2a2a2a" />
+  <meta name="color-scheme" content="light" />
+
+  <!-- Yayına alırken canonical URL'yi gerçek domain ile değiştir: https://www.archileaks.com/ -->
+  <link rel="canonical" href="https://www.archileaks.com/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="tr_TR" />
+  <meta property="og:site_name" content="ArchiLeaks" />
+  <meta property="og:title" content="ArchiLeaks | Mimarlık Sektörü Şeffaflık Platformu" />
+  <meta property="og:description" content="Mimarlık sektöründe anonim işveren deneyimleri, maaş verileri, mülakat notları ve çalışma koşulları." />
+  <meta property="og:url" content="https://www.archileaks.com/" />
+  <meta property="og:image" content="https://www.archileaks.com/og-image.jpg" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ArchiLeaks | Mimarlık Maaşları ve İşveren Deneyimleri" />
+  <meta name="twitter:description" content="Mimarlık ofisleri ve işverenler hakkında anonim, yapılandırılmış sektör verisi." />
+  <meta name="twitter:image" content="https://www.archileaks.com/og-image.jpg" />
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- Google AdSense / Google Ad Manager entegrasyonu için yayın öncesi ca-pub ve ad-slot değerlerini değiştir. -->
+  <!--
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-REPLACE_WITH_YOUR_ID" crossorigin="anonymous"></script>
+  -->
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "ArchiLeaks",
+    "url": "https://www.archileaks.com/",
+    "inLanguage": "tr-TR",
+    "description": "Mimarlık sektöründe anonim işveren deneyimi, maaş ve çalışma koşulu verileri.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.archileaks.com/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "ArchiLeaks",
+    "url": "https://www.archileaks.com/",
+    "logo": "https://www.archileaks.com/logo.png",
+    "sameAs": []
+  }
+  </script>
+  <style>
+    :root{
+      --bg:#efefec;
+      --paper:#ffffff;
+      --text:#222222;
+      --muted:#686868;
+      --muted2:#8c8c8c;
+      --line:#dddddd;
+      --accent:#d9a600;
+      --accent2:#f0bb13;
+      --accentDark:#9b7700;
+      --accentSoft:#fff6d8;
+      --dark:#2b2b2b;
+      --dark2:#3a3a3a;
+      --radius:8px;
+      --left:284px;
+      --right:280px;
+      --max:1280px;
+      --shadow:0 1px 3px rgba(0,0,0,.08);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    .skip-link{
+      position:absolute;
+      left:12px;
+      top:-48px;
+      z-index:200;
+      background:var(--accent2);
+      color:#222;
+      padding:10px 12px;
+      border-radius:0 0 8px 8px;
+      font-weight:900;
+      transition:top .16s ease;
+    }
+    .skip-link:focus{top:0}
+
+    :focus-visible{
+      outline:3px solid rgba(240,187,19,.72);
+      outline-offset:3px;
+    }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Calibri, "Segoe UI", Arial, sans-serif;
+      font-size:14px;
+      line-height:1.45;
+    }
+
+    a{color:inherit;text-decoration:none}
+    button,input,select,textarea{font:inherit;min-height:36px}
+    button{cursor:pointer}
+
+    .sr-only{
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:var(--dark);
+      color:#f7f7f7;
+      border-bottom:3px solid var(--accent2);
+    }
+
+    .top-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      min-height:56px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+      padding:8px 12px;
+    }
+
+    .logo{
+      font-weight:900;
+      letter-spacing:-.04em;
+      font-size:24px;
+      white-space:nowrap;
+      display:flex;
+      align-items:center;
+      gap:11px;
+      color:#fff;
+    }
+
+    .logo-badge{
+      width:42px;
+      height:42px;
+      display:grid;
+      place-items:center;
+      border-radius:999px;
+      background:linear-gradient(135deg,var(--accent2),var(--accent));
+      box-shadow:0 6px 18px rgba(0,0,0,.2);
+      flex:0 0 auto;
+    }
+
+    .eye-search{
+      position:relative;
+      width:24px;
+      height:24px;
+    }
+
+    .eye-search .eye{
+      position:absolute;
+      left:1px;
+      top:5px;
+      width:18px;
+      height:12px;
+      border:2px solid #2b2b2b;
+      border-radius:12px / 9px;
+      transform:rotate(-6deg);
+      background:rgba(255,255,255,.28);
+    }
+
+    .eye-search .pupil{
+      position:absolute;
+      left:7px;
+      top:8px;
+      width:6px;
+      height:6px;
+      background:#2b2b2b;
+      border-radius:50%;
+    }
+
+    .eye-search .glass{
+      position:absolute;
+      right:0;
+      bottom:0;
+      width:11px;
+      height:11px;
+      border:2px solid #2b2b2b;
+      border-radius:50%;
+      background:rgba(255,255,255,.22);
+    }
+
+    .eye-search .handle{
+      position:absolute;
+      right:-2px;
+      bottom:-1px;
+      width:8px;
+      height:3px;
+      background:#2b2b2b;
+      transform:rotate(45deg);
+      border-radius:99px;
+      transform-origin:left center;
+    }
+
+    .logo-word{
+      display:flex;
+      align-items:baseline;
+      gap:3px;
+      line-height:1;
+    }
+
+    .logo-word .archi{color:#fff}
+    .logo-word .leaks{color:var(--accent2)}
+
+    .search{
+      flex:1;
+      display:flex;
+      min-width:0;
+      max-width:520px;
+    }
+
+    .search input{
+      width:100%;
+      height:36px;
+      border:0;
+      border-radius:6px 0 0 6px;
+      padding:0 11px;
+      outline:none;
+      background:#fff;
+      color:#222;
+    }
+    .search button{
+      height:36px;
+      border:0;
+      padding:0 13px;
+      border-radius:0 6px 6px 0;
+      background:var(--accent2);
+      color:#2b2b2b;
+      font-weight:800;
+    }
+
+    .top-links{
+      display:none;
+      align-items:center;
+      gap:14px;
+      color:#d7d7d7;
+      font-size:13px;
+      white-space:nowrap;
+    }
+    .top-links a:hover{color:#fff}
+    .login{
+      border:1px solid rgba(255,255,255,.24);
+      padding:6px 9px;
+      border-radius:5px;
+    }
+
+    .layout{
+      max-width:var(--max);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1fr;
+      min-height:calc(100vh - 55px);
+    }
+
+    .leftbar{
+      background:#f9f9f5;
+      border-right:1px solid #dbdbd2;
+      display:none;
+    }
+
+    .left-head{
+      padding:12px;
+      border-bottom:1px solid #dbdbd2;
+      position:sticky;
+      top:59px;
+      background:#f9f9f5;
+      z-index:5;
+    }
+
+    .left-title{
+      color:var(--accentDark);
+      font-weight:800;
+      margin:0 0 9px;
+      font-size:15px;
+    }
+
+    .left-tabs{
+      display:flex;
+      gap:6px;
+      overflow:auto;
+      scrollbar-width:none;
+    }
+    .left-tabs::-webkit-scrollbar{display:none}
+
+    .tabbtn{
+      border:1px solid #d9d9d2;
+      background:#fff;
+      color:#555;
+      border-radius:999px;
+      padding:6px 9px;
+      font-size:12px;
+      white-space:nowrap;
+      font-weight:700;
+    }
+    .tabbtn.active{
+      background:var(--accent2);
+      color:#2b2b2b;
+      border-color:var(--accent2);
+    }
+
+    .topic-list{
+      list-style:none;
+      padding:0;
+      margin:0;
+    }
+
+    .topic-item{
+      border-bottom:1px solid #ecece6;
+    }
+
+    .topic-link{
+      display:block;
+      padding:9px 12px;
+    }
+    .topic-link:hover{background:var(--accentSoft)}
+    .topic-name{
+      color:#333;
+      font-weight:650;
+      display:flex;
+      gap:6px;
+      align-items:baseline;
+      justify-content:space-between;
+    }
+    .topic-name span:first-child{
+      min-width:0;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .count{
+      color:var(--accentDark);
+      font-size:12px;
+      font-weight:800;
+      flex:0 0 auto;
+    }
+    .topic-meta{
+      margin-top:2px;
+      color:var(--muted2);
+      font-size:11px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .main{
+      min-width:0;
+      background:var(--paper);
+      border-left:1px solid #dfdfd8;
+      border-right:1px solid #dfdfd8;
+    }
+
+    .mobile-topic-switch{
+      display:block;
+      padding:10px 10px 0;
+      background:#f8f8f4;
+      border-bottom:1px solid #dfdfd8;
+    }
+
+    .mobile-row{
+      display:flex;
+      gap:7px;
+      overflow:auto;
+      padding-bottom:10px;
+      scrollbar-width:none;
+    }
+    .mobile-row::-webkit-scrollbar{display:none}
+
+    .mobile-topic{
+      border:1px solid #d9d9d2;
+      background:#fff;
+      border-radius:999px;
+      color:#333;
+      padding:7px 10px;
+      white-space:nowrap;
+      font-weight:700;
+      font-size:12px;
+    }
+    .mobile-topic.active{
+      color:#2b2b2b;
+      background:var(--accent2);
+      border-color:var(--accent2);
+    }
+
+    .content{
+      padding:14px 12px 24px;
+    }
+
+    .topic-header{
+      border-bottom:1px solid #e4e4de;
+      padding-bottom:12px;
+      margin-bottom:14px;
+    }
+
+    h1{
+      margin:0 0 6px;
+      font-size:25px;
+      letter-spacing:-.035em;
+      line-height:1.12;
+      color:#222;
+    }
+
+    .topic-sub{
+      color:var(--muted);
+      font-size:13px;
+      margin-bottom:10px;
+    }
+
+    .topic-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:center;
+    }
+
+    .btn{
+      border:1px solid #d9d9d2;
+      background:#fff;
+      color:#333;
+      border-radius:6px;
+      padding:8px 10px;
+      font-weight:750;
+      font-size:13px;
+    }
+    .btn.primary{
+      background:var(--accent2);
+      color:#2b2b2b;
+      border-color:var(--accent2);
+    }
+    .btn:hover{filter:brightness(.98)}
+
+    .notice{
+      background:var(--accentSoft);
+      border:1px solid #f0d783;
+      border-radius:var(--radius);
+      color:#5c4b10;
+      padding:10px;
+      font-size:13px;
+      margin:12px 0 14px;
+    }
+
+    .entry{
+      padding:0 0 19px;
+      margin-bottom:17px;
+      border-bottom:1px solid #ecece6;
+    }
+
+    .entry-text{
+      font-size:15px;
+      color:#252525;
+      white-space:pre-wrap;
+    }
+
+    .entry-text p{
+      margin:0 0 11px;
+    }
+
+    .entry-meta{
+      margin-top:11px;
+      color:var(--muted2);
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px 12px;
+      font-size:12px;
+      align-items:center;
+    }
+
+    .author{
+      color:var(--accentDark);
+      font-weight:800;
+    }
+
+    .entry-tools{
+      margin-left:auto;
+      display:flex;
+      gap:8px;
+    }
+
+    .tool{
+      border:0;
+      background:transparent;
+      color:var(--muted);
+      padding:0;
+      font-size:12px;
+      font-weight:700;
+    }
+    .tool:hover{color:var(--accentDark)}
+
+    .ad{
+      border:1px dashed #d7d1ba;
+      color:var(--muted);
+      background:#fbfaef;
+      border-radius:var(--radius);
+      padding:12px;
+      margin:0 0 16px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .rightbar{
+      display:none;
+      padding:14px 12px;
+    }
+
+    .right-ad-area{
+      min-height:580px;
+      border:1px dashed #d7d1ba;
+      border-radius:var(--radius);
+      background:#fbfaef;
+      color:var(--muted);
+      display:grid;
+      place-items:center;
+      align-content:center;
+      gap:8px;
+      padding:14px;
+      text-align:center;
+      font-weight:800;
+      position:sticky;
+      top:76px;
+    }
+
+    .right-ad-area small{
+      display:block;
+      color:var(--muted2);
+      font-weight:700;
+      font-size:12px;
+    }
+
+    .box{
+      background:#fff;
+      border:1px solid #dfdfd8;
+      border-radius:var(--radius);
+      padding:12px;
+      margin-bottom:12px;
+      box-shadow:var(--shadow);
+    }
+
+    .box h3{
+      margin:0 0 8px;
+      color:var(--accentDark);
+      font-size:15px;
+    }
+
+    .box p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .mini-list{
+      list-style:none;
+      padding:0;
+      margin:0;
+    }
+
+    .mini-list li{
+      border-top:1px solid #eee;
+      padding:8px 0;
+      color:#555;
+      font-size:13px;
+    }
+    .mini-list li:first-child{border-top:0}
+
+    .form-panel{
+      background:#f8f8f3;
+      border:1px solid #dfdfd8;
+      border-radius:var(--radius);
+      padding:12px;
+      margin-top:18px;
+    }
+
+    .form-panel h2{
+      margin:0 0 8px;
+      font-size:18px;
+      color:#222;
+    }
+
+    .form-grid{
+      display:grid;
+      gap:9px;
+    }
+
+    .field{
+      width:100%;
+      min-height:38px;
+      border:1px solid #d9d9d2;
+      border-radius:5px;
+      padding:8px;
+      outline:none;
+      background:#fff;
+      color:#222;
+    }
+    textarea.field{
+      min-height:120px;
+      resize:vertical;
+    }
+    .field:focus{border-color:var(--accent2)}
+
+    .legal{
+      background:#fff;
+      border:1px solid #dfdfd8;
+      border-radius:6px;
+      color:#666;
+      padding:9px;
+      font-size:12px;
+    }
+
+    .check{
+      display:flex;
+      gap:8px;
+      align-items:flex-start;
+      color:#555;
+      font-size:13px;
+      font-weight:650;
+    }
+    .check input{margin-top:3px;accent-color:var(--accent2)}
+
+    .footer{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:22px 12px 80px;
+      color:var(--muted);
+      font-size:12px;
+      border-top:1px solid #dfdfd8;
+    }
+
+    .bottom-bar{
+      position:fixed;
+      left:0;right:0;bottom:0;
+      z-index:70;
+      background:#fff;
+      border-top:1px solid #dfdfd8;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      height:56px;
+    }
+    .bottom-bar a{
+      display:grid;
+      place-items:center;
+      color:#666;
+      font-size:11px;
+      font-weight:800;
+    }
+    .bottom-bar a.active{
+      color:#2b2b2b;
+      background:var(--accentSoft);
+    }
+
+    .toast{
+      position:fixed;
+      left:12px;
+      right:12px;
+      bottom:68px;
+      background:#2b2b2b;
+      color:#fff;
+      border-radius:8px;
+      padding:11px 12px;
+      opacity:0;
+      transform:translateY(12px);
+      pointer-events:none;
+      transition:.18s;
+      z-index:90;
+      font-weight:750;
+      font-size:13px;
+    }
+    .toast.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+
+    .login-button{
+      background:transparent;
+      color:#d7d7d7;
+      cursor:pointer;
+    }
+    .login-button:hover{color:#fff}
+
+    .modal-backdrop{
+      position:fixed;
+      inset:0;
+      z-index:120;
+      background:rgba(0,0,0,.52);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+    }
+
+    .modal-backdrop.show{
+      display:flex;
+    }
+
+    .auth-modal{
+      width:min(100%,420px);
+      background:#fff;
+      color:#222;
+      border-radius:14px;
+      border:1px solid #d7d7d0;
+      box-shadow:0 24px 70px rgba(0,0,0,.32);
+      overflow:hidden;
+    }
+
+    .auth-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      padding:16px 16px 12px;
+      border-bottom:1px solid #e4e4dd;
+      background:#f8f8f3;
+    }
+
+    .auth-head h2{
+      margin:0;
+      font-size:22px;
+      letter-spacing:-.035em;
+      color:#222;
+    }
+
+    .auth-head p{
+      margin:4px 0 0;
+      color:#666;
+      font-size:13px;
+    }
+
+    .close-modal{
+      border:0;
+      background:#2b2b2b;
+      color:#fff;
+      width:30px;
+      height:30px;
+      border-radius:50%;
+      font-size:18px;
+      line-height:1;
+      display:grid;
+      place-items:center;
+    }
+
+    .auth-body{
+      padding:16px;
+    }
+
+    .auth-form{
+      display:grid;
+      gap:10px;
+    }
+
+    .auth-label{
+      color:#444;
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .auth-input{
+      width:100%;
+      height:42px;
+      border:1px solid #d9d9d2;
+      border-radius:7px;
+      padding:0 10px;
+      outline:none;
+      color:#222;
+      background:#fff;
+    }
+
+    .auth-input:focus{
+      border-color:var(--accent2);
+      box-shadow:0 0 0 3px rgba(240,187,19,.16);
+    }
+
+    .auth-help{
+      color:#777;
+      font-size:12px;
+      margin:0;
+    }
+
+    .auth-submit{
+      height:42px;
+      border:1px solid var(--accent2);
+      background:var(--accent2);
+      color:#2b2b2b;
+      border-radius:7px;
+      font-weight:900;
+    }
+
+    .auth-note{
+      background:var(--accentSoft);
+      border:1px solid #f0d783;
+      border-radius:8px;
+      color:#5c4b10;
+      padding:10px;
+      font-size:12px;
+      margin-top:12px;
+    }
+
+    .otp-area{
+      display:none;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .otp-area.show{
+      display:grid;
+    }
+
+
+    .auth-switch{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:6px;
+      background:#eeeeea;
+      border-radius:9px;
+      padding:5px;
+      margin-bottom:14px;
+    }
+
+    .auth-switch button{
+      border:0;
+      background:transparent;
+      color:#666;
+      border-radius:7px;
+      height:34px;
+      font-weight:900;
+    }
+
+    .auth-switch button.active{
+      background:#fff;
+      color:#222;
+      box-shadow:0 1px 2px rgba(0,0,0,.08);
+    }
+
+    .auth-panel{display:none}
+    .auth-panel.active{display:block}
+
+    .auth-form-title{
+      margin:0 0 10px;
+      font-size:16px;
+      font-weight:900;
+      color:#222;
+    }
+
+    .auth-error{
+      display:none;
+      border:1px solid #f0b4aa;
+      background:#fff0ed;
+      color:#8a1f12;
+      border-radius:8px;
+      padding:9px;
+      font-size:12px;
+      font-weight:750;
+    }
+    .auth-error.show{display:block}
+
+    .auth-success{
+      display:none;
+      border:1px solid #f0d783;
+      background:var(--accentSoft);
+      color:#5c4b10;
+      border-radius:8px;
+      padding:9px;
+      font-size:12px;
+      font-weight:750;
+    }
+    .auth-success.show{display:block}
+
+
+    .salary-panel{
+      background:#f8f8f3;
+      border:1px solid #dfdfd8;
+      border-radius:var(--radius);
+      padding:12px;
+      margin:18px 0;
+    }
+
+    .salary-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      border-bottom:1px solid #e4e4de;
+      padding-bottom:10px;
+      margin-bottom:12px;
+    }
+
+    .salary-head h2{
+      margin:0 0 4px;
+      font-size:21px;
+      letter-spacing:-.03em;
+      color:#222;
+    }
+
+    .salary-head p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .salary-pill{
+      flex:0 0 auto;
+      background:var(--accentSoft);
+      border:1px solid #f0d783;
+      color:#5c4b10;
+      border-radius:999px;
+      padding:6px 9px;
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .salary-login-warning{
+      background:#fff;
+      border:1px solid #dfdfd8;
+      border-radius:8px;
+      color:#555;
+      padding:10px;
+      margin-bottom:12px;
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .salary-login-warning.hide{display:none}
+
+    .action-link{
+      border:0;
+      background:transparent;
+      color:var(--accentDark);
+      font-weight:900;
+      padding:0;
+      text-decoration:underline;
+      text-underline-offset:2px;
+    }
+
+    .salary-grid{
+      display:grid;
+      gap:14px;
+    }
+
+    .salary-form-card,
+    .salary-data-card{
+      background:#fff;
+      border:1px solid #dfdfd8;
+      border-radius:8px;
+      padding:12px;
+      box-shadow:var(--shadow);
+    }
+
+    .salary-form-card h3,
+    .salary-data-card h3{
+      margin:0 0 10px;
+      color:#222;
+      font-size:16px;
+    }
+
+    .salary-form{
+      display:grid;
+      gap:9px;
+    }
+
+    .salary-form-row{
+      display:grid;
+      gap:9px;
+    }
+
+    .salary-custom-field{
+      display:none;
+    }
+
+    .salary-custom-field.show{
+      display:block;
+    }
+
+    .salary-data-list{
+      display:grid;
+      gap:8px;
+    }
+
+    .salary-item{
+      border:1px solid #ecece6;
+      border-radius:7px;
+      padding:10px;
+      background:#fffdf6;
+    }
+
+    .salary-item-top{
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      align-items:flex-start;
+      margin-bottom:5px;
+    }
+
+    .salary-company{
+      font-weight:900;
+      color:#222;
+    }
+
+    .salary-amount{
+      color:var(--accentDark);
+      font-weight:950;
+      white-space:nowrap;
+    }
+
+    .salary-meta{
+      color:#666;
+      font-size:12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:5px 9px;
+    }
+
+    .salary-note{
+      margin-top:6px;
+      color:#777;
+      font-size:12px;
+    }
+
+    .salary-page-view{
+      display:none;
+      max-width:var(--max);
+      margin:0 auto;
+      padding:16px 12px 88px;
+    }
+
+    body.show-salary-page #homeView{display:none}
+    body.show-salary-page #salaryPage{display:block}
+
+    .salary-page-inner{
+      background:#f8f8f3;
+      border:1px solid #dfdfd8;
+      border-radius:var(--radius);
+      padding:12px;
+    }
+
+    .salary-page-head{
+      margin-bottom:14px;
+    }
+
+    .salary-back{
+      margin-bottom:8px;
+      display:inline-block;
+      font-size:13px;
+    }
+
+    .salary-stats{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+      margin:0 0 12px;
+    }
+
+    .salary-stat{
+      background:#fff;
+      border:1px solid #dfdfd8;
+      border-radius:8px;
+      padding:10px;
+      box-shadow:var(--shadow);
+    }
+
+    .salary-stat strong{
+      display:block;
+      color:#222;
+      font-size:18px;
+      line-height:1.1;
+    }
+
+    .salary-stat span{
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      margin-top:4px;
+      font-weight:700;
+    }
+
+    .salary-filter-card{
+      background:#fff;
+      border:1px solid #dfdfd8;
+      border-radius:8px;
+      padding:12px;
+      margin-bottom:14px;
+      box-shadow:var(--shadow);
+    }
+
+    .salary-filter-card h3{
+      margin:0 0 10px;
+      color:#222;
+      font-size:16px;
+    }
+
+    .salary-filter-grid{
+      display:grid;
+      gap:9px;
+    }
+
+    .salary-empty{
+      color:#777;
+      background:#fffdf6;
+      border:1px solid #ecece6;
+      border-radius:7px;
+      padding:12px;
+      font-size:13px;
+      font-weight:700;
+    }
+
+
+    @media(min-width:900px){
+      .salary-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+      .salary-form-row{grid-template-columns:1fr 1fr}
+      .salary-filter-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .salary-stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+      .salary-page-grid{grid-template-columns:minmax(340px,.8fr) minmax(0,1.2fr)}
+    }
+
+
+    .inline-rule-link{
+      border:0;
+      background:transparent;
+      color:var(--accentDark);
+      padding:0;
+      font-weight:900;
+      text-decoration:underline;
+      text-underline-offset:2px;
+    }
+
+    .rules-content{
+      display:grid;
+      gap:10px;
+      color:#444;
+      font-size:13px;
+    }
+
+    .rules-content h3{
+      margin:0;
+      color:#222;
+      font-size:15px;
+    }
+
+    .rules-content ul{
+      margin:0;
+      padding-left:18px;
+    }
+
+    .rules-content li{
+      margin:6px 0;
+    }
+
+    .rules-warning{
+      background:#fff6d8;
+      border:1px solid #f0d783;
+      border-radius:8px;
+      padding:10px;
+      color:#5c4b10;
+      font-weight:750;
+    }
+
+
+
+    @media(max-width:759px){
+      body{font-size:15px}
+      input,select,textarea,button{font-size:16px}
+      .top-inner{gap:9px;padding:7px 9px}
+      .logo{font-size:21px;gap:8px}
+      .logo-badge{width:38px;height:38px}
+      .search{max-width:none}
+      .search button{min-width:54px}
+      .btn,.auth-submit,.tabbtn,.mobile-topic{min-height:42px}
+      .salary-page-inner{padding:12px 10px 78px}
+      .salary-page-head{align-items:flex-start}
+      .salary-form-row{grid-template-columns:1fr}
+      .salary-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .salary-filter-grid{grid-template-columns:1fr}
+    }
+
+    @media(min-width:760px){
+      .top-links{display:flex}
+      .layout{
+        grid-template-columns:var(--left) minmax(0,1fr);
+      }
+      .leftbar{display:block}
+      .mobile-topic-switch{display:none}
+      .content{padding:18px 20px 34px}
+      h1{font-size:30px}
+      .footer{padding-bottom:28px}
+      .bottom-bar{display:none}
+      .toast{left:auto;right:18px;bottom:18px;width:360px}
+    }
+
+    @media(min-width:1120px){
+      .layout{
+        grid-template-columns:var(--left) minmax(0,1fr) var(--right);
+      }
+      .rightbar{display:block}
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#mainContent">Ana içeriğe geç</a>
+  <noscript><div class="notice" style="margin:12px">Bu prototipin filtreleme, giriş ve maaş veri girişi özellikleri için JavaScript gerekir.</div></noscript>
+  <header class="topbar">
+    <div class="top-inner">
+      <a href="#" class="logo" aria-label="ArchiLeaks">
+        <span class="logo-badge">
+          <span class="eye-search" aria-hidden="true">
+            <span class="eye"></span>
+            <span class="pupil"></span>
+            <span class="glass"></span>
+            <span class="handle"></span>
+          </span>
+        </span>
+        <span class="logo-word"><span class="archi">archi</span><span class="leaks">leaks</span></span>
+      </a>
+
+      <form class="search" id="searchForm" role="search" aria-label="Firma, pozisyon ve şehir arama">
+        <label class="sr-only" for="searchInput">Firma, pozisyon veya şehir ara</label><input id="searchInput" type="search" placeholder="firma, pozisyon, şehir ara" autocomplete="off" inputmode="search" />
+        <button type="submit">ara</button>
+      </form>
+
+      <nav class="top-links" aria-label="Ana menü">
+        <a href="#gundem">gündem</a>
+        <a href="#salaryPage" id="salaryNav">maaşlar</a>
+        <a href="#yaz">yaz</a>
+        
+        <button class="login login-button" type="button" id="openLogin">giriş yap</button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="layout" id="homeView">
+    <aside class="leftbar" id="gundem">
+      <div class="left-head">
+        <p class="left-title">gündem</p>
+        <div class="left-tabs" id="leftTabs"></div>
+      </div>
+      <ol class="topic-list" id="topicList"></ol>
+    </aside>
+
+    <main class="main" id="mainContent">
+      <div class="mobile-topic-switch">
+        <div class="mobile-row" id="mobileTopics"></div>
+      </div>
+
+      <section class="content">
+        <div class="topic-header">
+          <h1 id="topicTitle">enka inşaat</h1>
+          <div class="topic-sub" id="topicSub">İstanbul — İnşaat / Taahhüt · başlık tipi: işveren deneyimi</div>
+          <div class="topic-actions">
+            <button class="btn primary" type="button" onclick="document.getElementById('yaz').scrollIntoView({behavior:'smooth'})">entry gir</button>
+            <button class="btn" type="button" onclick="showToast('Prototip: takip özelliği backend bağlanınca açılacak.')">takip et</button>
+            <button class="btn" type="button" onclick="showToast('Prototip: raporlar moderasyon kuyruğuna bağlanacak.')">raporla</button>
+          </div>
+        </div>
+
+        <div class="notice">
+          Skor, maaş ortalaması ve çalışma koşulu kırılımları en az 5 doğrulanmış katkıdan sonra gösterilir. Bu prototipte veriler temsili akış içindir.
+        </div>
+
+        <article class="entry">
+          <div class="entry-text">
+            <p>teknik ofis tarafında çalışan mimarlar için büyük proje görme ihtimali yüksek. işin pozisyon kırılımı önemli; şantiye mimarı, teknik ofis mimarı ve tasarım koordinasyon mimarı aynı şirkette tamamen farklı gerçeklikler yaşayabilir.</p>
+            <p>bu yüzden archileaks'te firma skoru tek başına yetmez. departman ve pozisyon etiketi zorunlu olmalı.</p>
+          </div>
+          <div class="entry-meta">
+            <span class="author">anonim_mimar</span>
+            <span>bugün 14:22</span>
+            <span>pozisyon: teknik ofis mimarı</span>
+            <span class="entry-tools"><button class="tool">iyi</button><button class="tool">kötü</button><button class="tool">şikayet</button></span>
+          </div>
+        </article>
+
+        <aside class="ad ad-native" aria-label="Sponsorlu içerik alanı">
+          <span>sponsorlu / native reklam alanı</span>
+          <span>yorumlar öncesi slot</span>
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-format="fluid"
+               data-ad-layout-key="-fb+5w+4e-db+86"
+               data-ad-client="ca-pub-REPLACE_WITH_YOUR_ID"
+               data-ad-slot="REPLACE_NATIVE_SLOT"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </aside>
+
+        <article class="entry">
+          <div class="entry-text">
+            <p>mimarlık ofislerinde yorum formatı serbest metin gibi görünse de aslında yapılandırılmış olmalı. maaş, mesai, izin, öğrenme imkanı ve portfolyoya katkı ayrı ayrı toplanırsa veri daha temiz çıkar.</p>
+          </div>
+          <div class="entry-meta">
+            <span class="author">detaycı_projecı</span>
+            <span>dün 21:08</span>
+            <span>kategori: çalışma koşulları</span>
+            <span class="entry-tools"><button class="tool">iyi</button><button class="tool">kötü</button><button class="tool">şikayet</button></span>
+          </div>
+        </article>
+
+        <article class="entry" id="maas">
+          <div class="entry-text">
+            <p>maaş verisi tekil olarak gösterilmemeli. istanbul + teknik ofis mimarı + 3-5 yıl deneyim gibi kırılımlar için n ≥ 5 olmadan ortalama göstermek hem yanıltıcı hem riskli.</p>
+          </div>
+          <div class="entry-meta">
+            <span class="author">veri_mimarı</span>
+            <span>06.05.2026 18:41</span>
+            <span>etiket: maaş verisi</span>
+            <span class="entry-tools"><button class="tool">iyi</button><button class="tool">kötü</button><button class="tool">şikayet</button></span>
+          </div>
+        </article>
+
+        <section class="form-panel" id="yaz">
+          <h2>entry gir</h2>
+          <form class="form-grid" id="entryForm">
+            <select class="field" id="employerSelect" required></select>
+            <select class="field" required>
+              <option value="">pozisyon seç</option>
+              <option>Yeni Mezun Mimar</option>
+              <option>Mimar</option>
+              <option>Kıdemli Mimar</option>
+              <option>Proje Mimarı</option>
+              <option>Teknik Ofis Mimarı</option>
+              <option>Şantiye Mimarı</option>
+              <option>Tasarım Mimarı</option>
+              <option>BIM Uzmanı</option>
+              <option>Stajyer</option>
+            </select>
+            <select class="field" required>
+              <option value="">ilişki tipi</option>
+              <option>Çalışan</option>
+              <option>Eski çalışan</option>
+              <option>Stajyer</option>
+              <option>Mülakat adayı</option>
+              <option>Freelance / proje bazlı</option>
+            </select>
+            <textarea class="field" required placeholder="Deneyimini kişi adı, özel bilgi, hakaret veya suç isnadı içermeden yaz."></textarea>
+            <div class="legal">Yorumumun hukuki sorumluluğunun bana ait olduğunu, yorumun incelemeye alınacağını ve hakaret, suçlama, kişi adı, ifşa veya özel bilgi içerirse silinebileceğini kabul ediyorum.</div>
+            <label class="check"><input type="checkbox" required /> <span><button class="inline-rule-link" type="button" id="openRules">Yorum yazma kurallarını okudum</button> ve onaylıyorum.</span></label>
+            <button class="btn primary" type="submit">moderasyona gönder</button>
+          </form>
+        </section>
+
+
+      </section>
+    </main>
+
+    <aside class="rightbar">
+      <div class="box">
+        <h3>archileaks nedir?</h3>
+        <p>Mimarlık sektöründeki işveren deneyimlerini başlık mantığında toplayan anonim şeffaflık platformu.</p>
+      </div>
+      <aside class="right-ad-area" aria-label="Sağ kolon reklam alanı">
+        <span>sponsorlu reklam alanı</span>
+        <small>300×600 / responsive display slot</small>
+        <!--
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-REPLACE_WITH_YOUR_ID"
+             data-ad-slot="REPLACE_RIGHT_RAIL_SLOT"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        -->
+      </aside>
+    </aside>
+  </div>
+
+  <section class="salary-page-view" id="salaryPage" aria-label="Maaşlar sayfası">
+    <div class="salary-page-inner">
+      <div class="salary-head salary-page-head">
+        <div>
+          <button class="action-link salary-back" type="button" id="salaryBackButton">← gündeme dön</button>
+          <h2>maaşlar</h2>
+          <p>Anonim maaş verisi girişi, kırılım bazlı listeleme ve temel filtreleme. Giriş yapmış kullanıcı veri girebilir; veriler canlı sürümde moderasyon ve n ≥ 5 eşiğinden geçmeden yayınlanmamalı.</p>
+        </div>
+        <span class="salary-pill">n ≥ 5 kuralı korunur</span>
+      </div>
+
+      <div class="salary-login-warning" id="salaryLoginWarning">
+        Maaş değeri girmek için önce <button class="action-link" type="button" id="salaryLoginButton">giriş yap</button>. Önceden girilmiş verileri yine görebilirsin.
+      </div>
+
+      <div class="salary-stats" aria-label="Maaş veri özeti">
+        <div class="salary-stat"><strong id="salaryTotalCount">0</strong><span>görünen veri</span></div>
+        <div class="salary-stat"><strong id="salaryAvgNet">-</strong><span>ortalama net</span></div>
+        <div class="salary-stat"><strong id="salaryMaxNet">-</strong><span>en yüksek net</span></div>
+        <div class="salary-stat"><strong>n ≥ 5</strong><span>yayın eşiği</span></div>
+      </div>
+
+      <div class="salary-filter-card">
+        <h3>verileri filtrele</h3>
+        <div class="salary-filter-grid">
+          <select class="field" id="salaryFilterEmployer"></select>
+          <select class="field" id="salaryFilterPosition"></select>
+          <select class="field" id="salaryFilterCity"></select>
+          <select class="field" id="salaryFilterWorkType">
+            <option value="">tüm çalışma biçimleri</option>
+            <option>Full time</option>
+            <option>Part time</option>
+            <option>Dönemsel</option>
+            <option>Proje bazlı</option>
+            <option>Stajyer</option>
+          </select>
+          <select class="field" id="salarySort">
+            <option value="newest">en yeni</option>
+            <option value="highest">maaş yüksekten düşüğe</option>
+            <option value="lowest">maaş düşükten yükseğe</option>
+          </select>
+          <button class="btn" type="button" id="salaryResetFilters">filtreleri sıfırla</button>
+        </div>
+      </div>
+
+      <div class="salary-grid salary-page-grid">
+        <div class="salary-form-card">
+          <h3>maaş verisi gir</h3>
+          <form class="salary-form" id="salaryForm">
+            <select class="field" id="salaryEmployer" required></select>
+            <input class="field salary-custom-field" id="salaryEmployerCustom" type="text" placeholder="yeni firma adı yaz" />
+
+            <div class="salary-form-row">
+              <select class="field" id="salaryPosition" required></select>
+              <input class="field salary-custom-field" id="salaryPositionCustom" type="text" placeholder="yeni pozisyon adı yaz" />
+            </div>
+
+            <div class="salary-form-row">
+              <select class="field" id="salaryExperience" required></select>
+              <select class="field" id="salaryCity" required></select>
+            </div>
+
+            <div class="salary-form-row">
+              <select class="field" id="salaryWorkType" required>
+                <option value="">çalışma biçimi</option>
+                <option>Full time</option>
+                <option>Part time</option>
+                <option>Dönemsel</option>
+                <option>Proje bazlı</option>
+                <option>Stajyer</option>
+              </select>
+              <input class="field" id="salaryNet" type="number" inputmode="numeric" min="0" step="500" placeholder="net aylık maaş / TL" required />
+            </div>
+
+            <div class="salary-form-row">
+              <select class="field" id="salaryMonth" required></select>
+              <select class="field" id="salaryYear" required></select>
+            </div>
+            <input class="field" id="salaryBenefits" type="text" placeholder="yan haklar: yemek, yol, prim, özel sağlık vb." />
+            <textarea class="field" id="salaryComment" placeholder="Kısa not: mesai, ödeme düzeni, pozisyon kırılımı. Kişi adı veya özel bilgi yazma."></textarea>
+            <button class="btn primary" type="submit">maaş verisini ekle</button>
+          </form>
+        </div>
+
+        <div class="salary-data-card">
+          <h3>girilen maaş verileri</h3>
+          <div class="salary-data-list" id="salaryDataList" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <strong>ArchiLeaks</strong> statik prototip. Canlı sürümde Supabase Auth, moderasyon kuyruğu, firma doğrulama sistemi, KVKK metni, çerez yönetimi ve reklam onay akışı gerekir.
+    <nav aria-label="Alt bağlantılar" style="margin-top:8px;display:flex;gap:12px;flex-wrap:wrap">
+      <a href="#gundem">gündem</a>
+      <a href="#salaryPage">maaşlar</a>
+      <a href="#yaz">entry gir</a>
+      <a href="#" id="footerRules">yorum kuralları</a>
+    </nav>
+  </footer>
+
+  <nav class="bottom-bar">
+    <a class="active" href="#gundem">gündem</a>
+    <a href="#salaryPage">maaş</a>
+    <a href="#yaz">yaz</a>
+    
+    <a href="#login" id="bottomLogin">giriş</a>
+  </nav>
+
+
+  <div class="modal-backdrop" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <div class="auth-modal">
+      <div class="auth-head">
+        <div>
+          <h2 id="authTitle">üyelik</h2>
+          <p>Kayıt ol, mail doğrulama kodunu onayla, sonra giriş yap.</p>
+        </div>
+        <button class="close-modal" type="button" id="closeLogin" aria-label="Popup kapat">×</button>
+      </div>
+
+      <div class="auth-body">
+        <div class="auth-switch" role="tablist" aria-label="Üyelik işlemleri">
+          <button type="button" class="active" id="loginTab">giriş yap</button>
+          <button type="button" id="registerTab">kayıt ol</button>
+        </div>
+
+        <section class="auth-panel active" id="loginPanel">
+          <h3 class="auth-form-title">giriş yap</h3>
+          <form class="auth-form" id="loginForm">
+            <div class="auth-error" id="loginError"></div>
+            <label class="auth-label" for="loginEmail">email</label>
+            <input class="auth-input" id="loginEmail" type="email" placeholder="ornek@mail.com" autocomplete="email" required />
+
+            <label class="auth-label" for="loginPassword">şifre</label>
+            <input class="auth-input" id="loginPassword" type="password" placeholder="şifren" autocomplete="current-password" required />
+
+            <button class="auth-submit" type="submit">giriş yap</button>
+          </form>
+        </section>
+
+        <section class="auth-panel" id="registerPanel">
+          <h3 class="auth-form-title">kayıt ol</h3>
+          <form class="auth-form" id="registerForm">
+            <div class="auth-error" id="registerError"></div>
+            <div class="auth-success" id="registerSuccess"></div>
+
+            <label class="auth-label" for="registerNickname">rumuz</label>
+            <input class="auth-input" id="registerNickname" type="text" placeholder="ör: anonim_mimar" autocomplete="nickname" minlength="3" required />
+
+            <label class="auth-label" for="registerEmail">email</label>
+            <input class="auth-input" id="registerEmail" type="email" placeholder="ornek@mail.com" autocomplete="email" required />
+
+            <label class="auth-label" for="registerPassword">şifre</label>
+            <input class="auth-input" id="registerPassword" type="password" placeholder="en az 6 karakter" autocomplete="new-password" minlength="6" required />
+
+            <label class="auth-label" for="registerPasswordRepeat">şifre tekrarı</label>
+            <input class="auth-input" id="registerPasswordRepeat" type="password" placeholder="şifreyi tekrar yaz" autocomplete="new-password" minlength="6" required />
+
+            <button class="auth-submit" type="submit">kayıt ol ve kod gönder</button>
+          </form>
+
+          <form class="auth-form otp-area" id="verifyForm">
+            <label class="auth-label" for="verifyCode">mail doğrulama kodu</label>
+            <input class="auth-input" id="verifyCode" type="text" inputmode="numeric" maxlength="6" placeholder="6 haneli kod" />
+            <p class="auth-help">Kod onaylanmadan giriş yapılamaz.</p>
+            <button class="auth-submit" type="submit">kodu onayla</button>
+          </form>
+        </section>
+
+        <div class="auth-note">
+          Prototip notu: Bu dosyada kayıt bilgisi tarayıcı içinde geçici olarak simüle edilir. Canlı üründe email kodu, şifre saklama ve oturum işlemleri Supabase Auth ile yapılmalı.
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal-backdrop" id="rulesModal" role="dialog" aria-modal="true" aria-labelledby="rulesTitle">
+    <div class="auth-modal">
+      <div class="auth-head">
+        <div>
+          <h2 id="rulesTitle">yorum yazma kuralları</h2>
+          <p>Yorum göndermeden önce bu kurallar kabul edilmiş sayılır.</p>
+        </div>
+        <button class="close-modal" type="button" id="closeRules" aria-label="Kurallar popup kapat">×</button>
+      </div>
+
+      <div class="auth-body">
+        <div class="rules-content">
+          <div class="rules-warning">
+            Yorumumun hukuki sorumluluğunun bana ait olduğunu, yorumun incelemeye alınacağını ve hakaret, suçlama, kişi adı, ifşa veya özel bilgi içerirse silinebileceğini kabul ediyorum.
+          </div>
+
+          <h3>yayınlanmayacak içerikler</h3>
+          <ul>
+            <li>Kişi adı, soyadı, telefon, email, adres veya özel bilgi.</li>
+            <li>Hakaret, aşağılama, küfür veya hedef gösterme.</li>
+            <li>Belgesiz suç isnadı veya ağır iddia.</li>
+            <li>Şirket içi gizli belge, sözleşme, ücret bordrosu veya ekran görüntüsü ifşası.</li>
+            <li>Irk, din, cinsiyet, sağlık, siyasi görüş gibi hassas kişisel veriler.</li>
+          </ul>
+
+          <h3>doğru yorum formatı</h3>
+          <ul>
+            <li>Deneyimini pozisyon, dönem ve çalışma biçimi üzerinden anlat.</li>
+            <li>Kişileri değil, süreçleri ve çalışma koşullarını tarif et.</li>
+            <li>Maaş, mesai, izin, öğrenme imkanı ve ofis kültürünü ayrı ayrı belirt.</li>
+            <li>Net olmayan iddiaları kesin gerçek gibi yazma.</li>
+          </ul>
+
+          <h3>moderasyon</h3>
+          <ul>
+            <li>Yorumlar doğrudan yayınlanmaz; önce incelemeye düşer.</li>
+            <li>Gerekirse yorum reddedilir, kısaltılır veya kullanıcıdan düzenleme istenir.</li>
+            <li>Skor ve istatistikler en az 5 doğrulanmış katkıdan sonra gösterilir.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const employers = [
+      ["enka inşaat","İstanbul","İnşaat / Taahhüt","construction",44],
+      ["tabanlıoğlu architects","İstanbul","Mimarlık Ofisi","architecture",38],
+      ["emre arolat architecture","İstanbul","Mimarlık Ofisi","architecture",35],
+      ["rönesans holding","Ankara / İstanbul","İnşaat / Holding","construction",32],
+      ["teğet mimarlık","İstanbul","Mimarlık Ofisi","architecture",29],
+      ["gad architecture","İstanbul","Mimarlık Ofisi","architecture",28],
+      ["erginoğlu & çalışlar architects","İstanbul","Mimarlık Ofisi","architecture",26],
+      ["yazgan design architecture","Ankara","Mimarlık Ofisi","architecture",24],
+      ["uygur architects","Ankara","Mimarlık Ofisi","architecture",22],
+      ["limak inşaat","Ankara","İnşaat / Taahhüt","construction",21],
+      ["yapı merkezi","İstanbul","İnşaat / Taahhüt","construction",20],
+      ["tav construction","İstanbul","İnşaat / Taahhüt","construction",19],
+      ["ant yapı","İstanbul","İnşaat / Taahhüt","construction",18],
+      ["gülermak","Ankara","İnşaat / Taahhüt","construction",17],
+      ["nurol inşaat","Ankara","İnşaat / Taahhüt","construction",16],
+      ["emlak konut gyo","İstanbul","Gayrimenkul Geliştirici","realestate",16],
+      ["sinpaş gyo","İstanbul","Gayrimenkul Geliştirici","realestate",15],
+      ["nef","İstanbul","Gayrimenkul Geliştirici","realestate",15],
+      ["dap yapı","İstanbul","Gayrimenkul Geliştirici","realestate",14],
+      ["sur yapı","İstanbul","Gayrimenkul Geliştirici","realestate",14],
+      ["teknik yapı","İstanbul","Gayrimenkul Geliştirici","realestate",13],
+      ["jll türkiye","İstanbul","Gayrimenkul Danışmanlığı","pm",12],
+      ["cbre türkiye","İstanbul","Gayrimenkul Danışmanlığı","pm",11],
+      ["proplan proje yönetimi","İstanbul","Proje Yönetimi","pm",10],
+      ["bimtaş","İstanbul","Belediye İştiraki / Proje","public",9],
+      ["kiptaş","İstanbul","Belediye İştiraki / Konut","public",8],
+      ["toki","Ankara","Kamu / Konut","public",8]
+    ];
+
+    const categories = [
+      ["all","tümü"],
+      ["architecture","mimarlık"],
+      ["construction","inşaat"],
+      ["realestate","gayrimenkul"],
+      ["pm","proje yönetimi"],
+      ["public","kamu"]
+    ];
+
+    const salaryPositions = [
+      "Yeni Mezun Mimar",
+      "Mimar",
+      "Kıdemli Mimar",
+      "Proje Mimarı",
+      "Teknik Ofis Mimarı",
+      "Şantiye Mimarı",
+      "Tasarım Mimarı",
+      "BIM Uzmanı",
+      "Stajyer"
+    ];
+
+    const turkeyCities = [
+      "Adana","Adıyaman","Afyonkarahisar","Ağrı","Amasya","Ankara","Antalya","Artvin","Aydın","Balıkesir",
+      "Bilecik","Bingöl","Bitlis","Bolu","Burdur","Bursa","Çanakkale","Çankırı","Çorum","Denizli",
+      "Diyarbakır","Edirne","Elazığ","Erzincan","Erzurum","Eskişehir","Gaziantep","Giresun","Gümüşhane","Hakkari",
+      "Hatay","Isparta","Mersin","İstanbul","İzmir","Kars","Kastamonu","Kayseri","Kırklareli","Kırşehir",
+      "Kocaeli","Konya","Kütahya","Malatya","Manisa","Kahramanmaraş","Mardin","Muğla","Muş","Nevşehir",
+      "Niğde","Ordu","Rize","Sakarya","Samsun","Siirt","Sinop","Sivas","Tekirdağ","Tokat",
+      "Trabzon","Tunceli","Şanlıurfa","Uşak","Van","Yozgat","Zonguldak","Aksaray","Bayburt","Karaman",
+      "Kırıkkale","Batman","Şırnak","Bartın","Ardahan","Iğdır","Yalova","Karabük","Kilis","Osmaniye",
+      "Düzce","Yurtdışı"
+    ];
+
+    const salaryMonths = [
+      ["01","Ocak"],["02","Şubat"],["03","Mart"],["04","Nisan"],["05","Mayıs"],["06","Haziran"],
+      ["07","Temmuz"],["08","Ağustos"],["09","Eylül"],["10","Ekim"],["11","Kasım"],["12","Aralık"]
+    ];
+
+    const customSalaryEmployers = [];
+    const customSalaryPositions = [];
+
+    const state = { category:"all", query:"", current:employers[0] };
+
+    const salaryData = [
+      { employer:"enka inşaat", position:"Teknik Ofis Mimarı", experience:"3-5 yıl", city:"İstanbul", workType:"Full time", net:72000, period:"2026-05", benefits:"yemek + servis", note:"Büyük proje temposu yüksek; mesai kırılımı pozisyona göre değişiyor.", source:"anonim" },
+      { employer:"tabanlıoğlu architects", position:"Proje Mimarı", experience:"5-8 yıl", city:"İstanbul", workType:"Full time", net:68000, period:"2026-04", benefits:"yemek", note:"Tasarım yoğunluğu yüksek; portfolyoya katkı güçlü.", source:"anonim" },
+      { employer:"rönesans holding", position:"Şantiye Mimarı", experience:"3-5 yıl", city:"Ankara", workType:"Full time", net:76000, period:"2026-05", benefits:"yemek + yol", note:"Saha temposu ağır; paket maaş yan haklarla anlam kazanıyor.", source:"anonim" },
+      { employer:"emre arolat architecture", position:"Tasarım Mimarı", experience:"1-3 yıl", city:"İstanbul", workType:"Full time", net:47000, period:"2026-04", benefits:"yemek", note:"Öğrenme yüksek; mesai beklentisi net sorulmalı.", source:"anonim" }
+    ];
+
+    const $ = (id)=>document.getElementById(id);
+    const topicList=$("topicList"), leftTabs=$("leftTabs"), mobileTopics=$("mobileTopics");
+    const topicTitle=$("topicTitle"), topicSub=$("topicSub"), employerSelect=$("employerSelect");
+    const salaryEmployer=$("salaryEmployer"), salaryEmployerCustom=$("salaryEmployerCustom"), salaryPosition=$("salaryPosition"), salaryPositionCustom=$("salaryPositionCustom");
+    const salaryExperience=$("salaryExperience"), salaryCity=$("salaryCity"), salaryMonth=$("salaryMonth"), salaryYear=$("salaryYear");
+    const salaryForm=$("salaryForm"), salaryDataList=$("salaryDataList");
+    const salaryLoginWarning=$("salaryLoginWarning"), salaryLoginButton=$("salaryLoginButton"), salaryBackButton=$("salaryBackButton");
+    const salaryFilterEmployer=$("salaryFilterEmployer"), salaryFilterPosition=$("salaryFilterPosition"), salaryFilterCity=$("salaryFilterCity"), salaryFilterWorkType=$("salaryFilterWorkType"), salarySort=$("salarySort"), salaryResetFilters=$("salaryResetFilters");
+    const salaryTotalCount=$("salaryTotalCount"), salaryAvgNet=$("salaryAvgNet"), salaryMaxNet=$("salaryMaxNet");
+
+    function norm(x){ return String(x||"").toLocaleLowerCase("tr-TR").trim(); }
+
+    function filtered(){
+      const q=norm(state.query);
+      return employers.filter(e=>{
+        const typeOk = state.category==="all" || e[3]===state.category;
+        const queryOk = !q || norm(e.join(" ")).includes(q);
+        return typeOk && queryOk;
+      });
+    }
+
+    function renderTabs(){
+      leftTabs.innerHTML = categories.map(c=>`<button class="tabbtn ${state.category===c[0]?"active":""}" data-cat="${c[0]}">${c[1]}</button>`).join("");
+      document.querySelectorAll("[data-cat]").forEach(b=>{
+        b.onclick=()=>{state.category=b.dataset.cat; render();}
+      });
+    }
+
+    function renderTopics(){
+      const list=filtered();
+      topicList.innerHTML = list.map((e,i)=>`
+        <li class="topic-item">
+          <a class="topic-link" href="#" data-topic="${i}">
+            <div class="topic-name"><span>${e[0]}</span><span class="count">${e[4]}</span></div>
+            <div class="topic-meta">${e[1]} — ${e[2]}</div>
+          </a>
+        </li>`).join("");
+
+      mobileTopics.innerHTML = list.slice(0,14).map((e,i)=>`
+        <a href="#" class="mobile-topic ${state.current[0]===e[0]?"active":""}" data-topic="${i}">${e[0]} <b>${e[4]}</b></a>
+      `).join("");
+
+      document.querySelectorAll("[data-topic]").forEach(a=>{
+        a.onclick=(ev)=>{
+          ev.preventDefault();
+          state.current = filtered()[Number(a.dataset.topic)];
+          renderCurrent();
+          window.scrollTo({top:0,behavior:"smooth"});
+        };
+      });
+    }
+
+    function renderCurrent(){
+      const e=state.current;
+      topicTitle.textContent=e[0];
+      topicSub.textContent=`${e[1]} — ${e[2]} · başlık tipi: işveren deneyimi · ${e[4]} katkı adayı`;
+      document.querySelectorAll(".mobile-topic").forEach(x=>x.classList.toggle("active", x.textContent.includes(e[0])));
+      if(employerSelect) employerSelect.value=e[0];
+    }
+
+    function renderSelect(){
+      const employerOptions = `<option value="">firma seç</option>` + employers.map(e=>`<option value="${e[0]}">${e[0]} — ${e[1]}</option>`).join("");
+      if(employerSelect) employerSelect.innerHTML = employerOptions;
+
+      if(salaryEmployer){
+        const customOptions = customSalaryEmployers.map(name=>`<option value="${name}">${name} — kullanıcı girişi</option>`).join("");
+        salaryEmployer.innerHTML = employerOptions + customOptions + `<option value="__new__">+ yeni firma gir</option>`;
+      }
+
+      if(salaryPosition){
+        const basePositions = salaryPositions.map(p=>`<option value="${p}">${p}</option>`).join("");
+        const customPositions = customSalaryPositions.map(p=>`<option value="${p}">${p} — kullanıcı girişi</option>`).join("");
+        salaryPosition.innerHTML = `<option value="">pozisyon seç</option>` + basePositions + customPositions + `<option value="__new__">+ yeni pozisyon gir</option>`;
+      }
+
+      if(salaryExperience){
+        salaryExperience.innerHTML = `<option value="">deneyim yılı seç</option>` + Array.from({length:30},(_,i)=>`<option value="${i+1} yıl">${i+1} yıl</option>`).join("");
+      }
+
+      if(salaryCity){
+        salaryCity.innerHTML = `<option value="">şehir seç</option>` + turkeyCities.map(city=>`<option value="${city}">${city}</option>`).join("");
+      }
+
+      const now = new Date();
+      const defaultMonth = String(now.getMonth() + 1).padStart(2,"0");
+      const defaultYear = String(now.getFullYear());
+
+      if(salaryMonth){
+        salaryMonth.innerHTML = `<option value="">ay seç</option>` + salaryMonths.map(([value,label])=>`<option value="${value}">${label}</option>`).join("");
+        salaryMonth.value = defaultMonth;
+      }
+
+      if(salaryYear){
+        const startYear = 2015;
+        const endYear = now.getFullYear() + 1;
+        salaryYear.innerHTML = `<option value="">yıl seç</option>` + Array.from({length:endYear-startYear+1},(_,i)=>endYear-i).map(year=>`<option value="${year}">${year}</option>`).join("");
+        salaryYear.value = defaultYear;
+      }
+
+      renderSalaryFilterOptions();
+      toggleCustomSalaryFields();
+    }
+
+    function renderSalaryFilterOptions(){
+      if(salaryFilterEmployer){
+        const existing = salaryFilterEmployer.value;
+        const allEmployers = [...new Set([...employers.map(e=>e[0]), ...customSalaryEmployers, ...salaryData.map(item=>item.employer)])];
+        salaryFilterEmployer.innerHTML = `<option value="">tüm firmalar</option>` + allEmployers.map(name=>`<option value="${name}">${name}</option>`).join("");
+        salaryFilterEmployer.value = allEmployers.includes(existing) ? existing : "";
+      }
+
+      if(salaryFilterPosition){
+        const existing = salaryFilterPosition.value;
+        const allPositions = [...new Set([...salaryPositions, ...customSalaryPositions, ...salaryData.map(item=>item.position)])];
+        salaryFilterPosition.innerHTML = `<option value="">tüm pozisyonlar</option>` + allPositions.map(name=>`<option value="${name}">${name}</option>`).join("");
+        salaryFilterPosition.value = allPositions.includes(existing) ? existing : "";
+      }
+
+      if(salaryFilterCity){
+        const existing = salaryFilterCity.value;
+        salaryFilterCity.innerHTML = `<option value="">tüm şehirler</option>` + turkeyCities.map(city=>`<option value="${city}">${city}</option>`).join("");
+        salaryFilterCity.value = turkeyCities.includes(existing) ? existing : "";
+      }
+    }
+
+    function formatTL(value){
+      return Number(value || 0).toLocaleString("tr-TR") + " TL";
+    }
+
+    function formatPeriod(period){
+      const [year, month] = String(period || "").split("-");
+      const found = salaryMonths.find(m=>m[0] === month);
+      return found ? `${found[1]} ${year}` : period;
+    }
+
+    function toggleCustomSalaryFields(){
+      const employerIsNew = salaryEmployer && salaryEmployer.value === "__new__";
+      if(salaryEmployerCustom){
+        salaryEmployerCustom.classList.toggle("show", Boolean(employerIsNew));
+        salaryEmployerCustom.required = Boolean(employerIsNew);
+        if(!employerIsNew) salaryEmployerCustom.value = "";
+      }
+
+      const positionIsNew = salaryPosition && salaryPosition.value === "__new__";
+      if(salaryPositionCustom){
+        salaryPositionCustom.classList.toggle("show", Boolean(positionIsNew));
+        salaryPositionCustom.required = Boolean(positionIsNew);
+        if(!positionIsNew) salaryPositionCustom.value = "";
+      }
+    }
+
+    function getFilteredSalaryData(){
+      let list = salaryData.slice();
+      if(salaryFilterEmployer && salaryFilterEmployer.value) list = list.filter(item=>item.employer === salaryFilterEmployer.value);
+      if(salaryFilterPosition && salaryFilterPosition.value) list = list.filter(item=>item.position === salaryFilterPosition.value);
+      if(salaryFilterCity && salaryFilterCity.value) list = list.filter(item=>item.city === salaryFilterCity.value);
+      if(salaryFilterWorkType && salaryFilterWorkType.value) list = list.filter(item=>item.workType === salaryFilterWorkType.value);
+
+      const sort = salarySort ? salarySort.value : "newest";
+      if(sort === "highest") list.sort((a,b)=>Number(b.net)-Number(a.net));
+      else if(sort === "lowest") list.sort((a,b)=>Number(a.net)-Number(b.net));
+      else list.sort((a,b)=>String(b.period).localeCompare(String(a.period)));
+      return list;
+    }
+
+    function renderSalaryStats(list){
+      const count = list.length;
+      const values = list.map(item=>Number(item.net || 0)).filter(Boolean);
+      const avg = values.length ? Math.round(values.reduce((sum,value)=>sum+value,0) / values.length) : 0;
+      const max = values.length ? Math.max(...values) : 0;
+      if(salaryTotalCount) salaryTotalCount.textContent = count;
+      if(salaryAvgNet) salaryAvgNet.textContent = avg ? formatTL(avg) : "-";
+      if(salaryMaxNet) salaryMaxNet.textContent = max ? formatTL(max) : "-";
+    }
+
+    function renderSalaryData(){
+      if(!salaryDataList) return;
+      const list = getFilteredSalaryData();
+      renderSalaryStats(list);
+      if(!list.length){
+        salaryDataList.innerHTML = `<div class="salary-empty">Bu filtrelerle görünen maaş verisi yok.</div>`;
+        return;
+      }
+      salaryDataList.innerHTML = list.map(item=>`
+        <div class="salary-item">
+          <div class="salary-item-top">
+            <span class="salary-company">${item.employer}</span>
+            <span class="salary-amount">${formatTL(item.net)}</span>
+          </div>
+          <div class="salary-meta">
+            <span>${item.position}</span>
+            <span>${item.experience}</span>
+            <span>${item.city}</span>
+            <span>${item.workType}</span>
+            <span>${formatPeriod(item.period)}</span>
+            <span>${item.source}</span>
+          </div>
+          ${item.benefits ? `<div class="salary-note">yan hak: ${item.benefits}</div>` : ""}
+          ${item.note ? `<div class="salary-note">not: ${item.note}</div>` : ""}
+        </div>`).join("");
+    }
+
+    function updateSalaryAccess(){
+      const loggedIn = Boolean(authState && authState.loggedIn);
+      if(salaryLoginWarning) salaryLoginWarning.classList.toggle("hide", loggedIn);
+      if(salaryForm){
+        salaryForm.querySelectorAll("input, select, textarea, button").forEach(el=>{
+          el.disabled = !loggedIn;
+        });
+      }
+    }
+
+    function render(){ renderTabs(); renderTopics(); renderCurrent(); renderSalaryData(); }
+
+    function showToast(msg){
+      const t=$("toast");
+      t.textContent=msg;
+      t.classList.add("show");
+      clearTimeout(showToast.timer);
+      showToast.timer=setTimeout(()=>t.classList.remove("show"),3000);
+    }
+
+
+    function openSalaryPage(){
+      document.body.classList.add("show-salary-page");
+      window.scrollTo({top:0,behavior:"smooth"});
+      if(history.pushState) history.pushState(null,"","#salaryPage");
+      renderSalaryData();
+    }
+
+    function openHomePage(targetId){
+      document.body.classList.remove("show-salary-page");
+      if(history.pushState) history.pushState(null,"", targetId ? `#${targetId}` : "#gundem");
+      setTimeout(()=>{
+        const target = targetId ? $(targetId) : null;
+        if(target) target.scrollIntoView({behavior:"smooth"});
+        else window.scrollTo({top:0,behavior:"smooth"});
+      },0);
+    }
+
+    document.querySelectorAll('a[href="#salaryPage"]').forEach(link=>{
+      link.addEventListener("click", e=>{
+        e.preventDefault();
+        openSalaryPage();
+      });
+    });
+
+    document.querySelectorAll('a[href="#gundem"], a.logo').forEach(link=>{
+      link.addEventListener("click", e=>{
+        e.preventDefault();
+        openHomePage("gundem");
+      });
+    });
+
+    document.querySelectorAll('a[href="#yaz"]').forEach(link=>{
+      link.addEventListener("click", e=>{
+        e.preventDefault();
+        openHomePage("yaz");
+      });
+    });
+
+    if(salaryBackButton) salaryBackButton.addEventListener("click", ()=>openHomePage("gundem"));
+
+    $("searchInput").addEventListener("input",e=>{
+      state.query=e.target.value;
+      renderTopics();
+    });
+
+    $("searchForm").addEventListener("submit",e=>{
+      e.preventDefault();
+      const list=filtered();
+      if(list[0]){ state.current=list[0]; renderCurrent(); }
+      openHomePage("gundem");
+    });
+
+    $("entryForm").addEventListener("submit",e=>{
+      e.preventDefault();
+      showToast("prototip: canlı sürümde entry moderasyon kuyruğuna gönderilecek.");
+      e.target.reset();
+    });
+
+    if(salaryEmployer) salaryEmployer.addEventListener("change", toggleCustomSalaryFields);
+    if(salaryPosition) salaryPosition.addEventListener("change", toggleCustomSalaryFields);
+
+    [salaryFilterEmployer, salaryFilterPosition, salaryFilterCity, salaryFilterWorkType, salarySort].forEach(el=>{
+      if(el) el.addEventListener("change", renderSalaryData);
+    });
+
+    if(salaryResetFilters){
+      salaryResetFilters.addEventListener("click", ()=>{
+        [salaryFilterEmployer, salaryFilterPosition, salaryFilterCity, salaryFilterWorkType].forEach(el=>{ if(el) el.value = ""; });
+        if(salarySort) salarySort.value = "newest";
+        renderSalaryData();
+      });
+    }
+
+    if(salaryLoginButton) salaryLoginButton.addEventListener("click", openAuthModal);
+
+    if(salaryForm){
+      salaryForm.addEventListener("submit", e=>{
+        e.preventDefault();
+
+        if(!authState.loggedIn){
+          showToast("maaş verisi girmek için önce giriş yapmalısın.");
+          openAuthModal();
+          return;
+        }
+
+        const selectedEmployer = $("salaryEmployer").value;
+        const selectedPosition = $("salaryPosition").value;
+        const employer = selectedEmployer === "__new__" ? $("salaryEmployerCustom").value.trim() : selectedEmployer;
+        const position = selectedPosition === "__new__" ? $("salaryPositionCustom").value.trim() : selectedPosition;
+
+        if(!employer){
+          showToast("firma adı boş bırakılamaz.");
+          return;
+        }
+
+        if(!position){
+          showToast("pozisyon adı boş bırakılamaz.");
+          return;
+        }
+
+        if(selectedEmployer === "__new__" && !customSalaryEmployers.some(name=>norm(name) === norm(employer))){
+          customSalaryEmployers.push(employer);
+        }
+
+        if(selectedPosition === "__new__" && !customSalaryPositions.some(name=>norm(name) === norm(position))){
+          customSalaryPositions.push(position);
+        }
+
+        salaryData.unshift({
+          employer,
+          position,
+          experience: $("salaryExperience").value,
+          city: $("salaryCity").value,
+          workType: $("salaryWorkType").value,
+          net: Number($("salaryNet").value),
+          period: `${$("salaryYear").value}-${$("salaryMonth").value}`,
+          benefits: $("salaryBenefits").value.trim(),
+          note: $("salaryComment").value.trim(),
+          source: authState.nickname || "giriş yapan kullanıcı"
+        });
+
+        salaryForm.reset();
+        renderSelect();
+        toggleCustomSalaryFields();
+        renderSalaryData();
+        showToast("maaş verisi eklendi; canlı sürümde moderasyon ve n ≥ 5 eşiğine bağlanacak.");
+      });
+    }
+
+    const rulesModal = $("rulesModal");
+    const openRules = $("openRules");
+    const closeRules = $("closeRules");
+    const bottomRules = $("bottomRules");
+    const footerRules = $("footerRules");
+
+    function openRulesModal(){
+      if(rulesModal) rulesModal.classList.add("show");
+    }
+
+    function closeRulesModal(){
+      if(rulesModal) rulesModal.classList.remove("show");
+    }
+
+    if(openRules) openRules.addEventListener("click", openRulesModal);
+    if(bottomRules) bottomRules.addEventListener("click", e=>{ e.preventDefault(); openRulesModal(); });
+    if(footerRules) footerRules.addEventListener("click", e=>{ e.preventDefault(); openRulesModal(); });
+    if(closeRules) closeRules.addEventListener("click", closeRulesModal);
+
+    if(rulesModal){
+      rulesModal.addEventListener("click", e=>{
+        if(e.target === rulesModal) closeRulesModal();
+      });
+    }
+
+    document.addEventListener("keydown", e=>{
+      if(e.key === "Escape") closeRulesModal();
+    });
+
+    document.querySelectorAll(".bottom-bar a").forEach(a=>{
+      a.addEventListener("click",()=>{
+        document.querySelectorAll(".bottom-bar a").forEach(x=>x.classList.remove("active"));
+        a.classList.add("active");
+      });
+    });
+
+
+    const loginModal = $("loginModal");
+    const openLogin = $("openLogin");
+    const closeLogin = $("closeLogin");
+    const bottomLogin = $("bottomLogin");
+
+    const loginTab = $("loginTab");
+    const registerTab = $("registerTab");
+    const loginPanel = $("loginPanel");
+    const registerPanel = $("registerPanel");
+
+    const loginForm = $("loginForm");
+    const registerForm = $("registerForm");
+    const verifyForm = $("verifyForm");
+
+    const loginError = $("loginError");
+    const registerError = $("registerError");
+    const registerSuccess = $("registerSuccess");
+
+    const authState = {
+      registeredEmail: "",
+      registeredPassword: "",
+      nickname: "",
+      verificationCode: "",
+      verified: false,
+      loggedIn: false
+    };
+
+    function setAuthMode(mode){
+      const isLogin = mode === "login";
+      loginTab.classList.toggle("active", isLogin);
+      registerTab.classList.toggle("active", !isLogin);
+      loginPanel.classList.toggle("active", isLogin);
+      registerPanel.classList.toggle("active", !isLogin);
+    }
+
+    function setError(el, message){
+      if(!el) return;
+      el.textContent = message || "";
+      el.classList.toggle("show", Boolean(message));
+    }
+
+    function setSuccess(el, message){
+      if(!el) return;
+      el.textContent = message || "";
+      el.classList.toggle("show", Boolean(message));
+    }
+
+    function openAuthModal(){
+      loginModal.classList.add("show");
+      setTimeout(()=>$("loginEmail").focus(),50);
+    }
+
+    function closeAuthModal(){
+      loginModal.classList.remove("show");
+    }
+
+    function createFakeVerificationCode(){
+      return String(Math.floor(100000 + Math.random() * 900000));
+    }
+
+    if(openLogin) openLogin.addEventListener("click", openAuthModal);
+    if(bottomLogin) bottomLogin.addEventListener("click", e=>{ e.preventDefault(); openAuthModal(); });
+    if(closeLogin) closeLogin.addEventListener("click", closeAuthModal);
+
+    if(loginTab) loginTab.addEventListener("click",()=>setAuthMode("login"));
+    if(registerTab) registerTab.addEventListener("click",()=>setAuthMode("register"));
+
+    if(loginModal){
+      loginModal.addEventListener("click", e=>{
+        if(e.target === loginModal) closeAuthModal();
+      });
+    }
+
+    document.addEventListener("keydown", e=>{
+      if(e.key === "Escape") closeAuthModal();
+    });
+
+    if(registerForm){
+      registerForm.addEventListener("submit", e=>{
+        e.preventDefault();
+        setError(registerError, "");
+        setSuccess(registerSuccess, "");
+
+        const nickname = $("registerNickname").value.trim();
+        const email = $("registerEmail").value.trim().toLocaleLowerCase("tr-TR");
+        const password = $("registerPassword").value;
+        const repeat = $("registerPasswordRepeat").value;
+
+        if(nickname.length < 3){
+          setError(registerError, "Rumuz en az 3 karakter olmalı.");
+          return;
+        }
+
+        if(password.length < 6){
+          setError(registerError, "Şifre en az 6 karakter olmalı.");
+          return;
+        }
+
+        if(password !== repeat){
+          setError(registerError, "Şifre ve şifre tekrarı aynı değil.");
+          return;
+        }
+
+        authState.registeredEmail = email;
+        authState.registeredPassword = password;
+        authState.nickname = nickname;
+        authState.verificationCode = createFakeVerificationCode();
+        authState.verified = false;
+
+        $("verifyForm").classList.add("show");
+        setSuccess(registerSuccess, `Doğrulama kodu mailine gönderildi gibi simüle edildi. Prototip kodu: ${authState.verificationCode}`);
+        showToast("kayıt alındı; mail doğrulama kodu onaylanmalı.");
+      });
+    }
+
+    if(verifyForm){
+      verifyForm.addEventListener("submit", e=>{
+        e.preventDefault();
+        setError(registerError, "");
+
+        const code = $("verifyCode").value.trim();
+
+        if(!authState.verificationCode){
+          setError(registerError, "Önce kayıt formunu doldurup doğrulama kodu iste.");
+          return;
+        }
+
+        if(code !== authState.verificationCode){
+          setError(registerError, "Doğrulama kodu hatalı.");
+          return;
+        }
+
+        authState.verified = true;
+        setSuccess(registerSuccess, "Email doğrulandı. Artık giriş yapabilirsin.");
+        showToast("email doğrulandı; giriş yapabilirsin.");
+        setAuthMode("login");
+        $("loginEmail").value = authState.registeredEmail;
+        $("loginPassword").focus();
+      });
+    }
+
+    if(loginForm){
+      loginForm.addEventListener("submit", e=>{
+        e.preventDefault();
+        setError(loginError, "");
+
+        const email = $("loginEmail").value.trim().toLocaleLowerCase("tr-TR");
+        const password = $("loginPassword").value;
+
+        if(!authState.registeredEmail){
+          setError(loginError, "Önce kayıt olmalısın.");
+          setAuthMode("register");
+          return;
+        }
+
+        if(email !== authState.registeredEmail || password !== authState.registeredPassword){
+          setError(loginError, "Email veya şifre hatalı.");
+          return;
+        }
+
+        if(!authState.verified){
+          setError(loginError, "Email doğrulama kodu onaylanmadan giriş yapılamaz.");
+          setAuthMode("register");
+          $("verifyForm").classList.add("show");
+          return;
+        }
+
+        authState.loggedIn = true;
+        if(openLogin) openLogin.textContent = authState.nickname;
+        closeAuthModal();
+        updateSalaryAccess();
+        showToast(`${authState.nickname} olarak giriş yapıldı.`);
+      });
+    }
+
+    renderSelect();
+    render();
+    updateSalaryAccess();
+    if(window.location.hash === "#salaryPage") openSalaryPage();
+  </script>
+</body>
+</html>
