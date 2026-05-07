@@ -1479,7 +1479,7 @@
           <div class="topic-actions">
             <button class="btn primary" type="button" onclick="document.getElementById('yaz').scrollIntoView({behavior:'smooth'})">entry gir</button>
             <button class="btn" type="button" onclick="showToast('Prototip: takip özelliği backend bağlanınca açılacak.')">takip et</button>
-            <button class="btn" type="button" onclick="showToast('Prototip: raporlar moderasyon kuyruğuna bağlanacak.')">raporla</button>
+            <button class="btn" type="button" onclick="showToast('Rapor incelenmek üzere alınacak.')">raporla</button>
           </div>
         </div>
 
@@ -1766,7 +1766,7 @@
         </section>
 
         <div class="auth-note">
-          Supabase bağlantısı aktifse kayıt, giriş ve veri gönderimi Supabase Auth + Postgres üzerinden çalışır. Kayıttan sonra hesabını mailine gelen doğrulama linkiyle onaylaman gerekir.
+          Kayıttan sonra hesabını mailine gelen doğrulama linkiyle onaylaman gerekir.
         </div>
       </div>
     </div>
@@ -1874,7 +1874,7 @@
       <div class="auth-head">
         <div>
           <h2 id="contactTitle">bizimle iletişime geç</h2>
-          <p>Talebini konu, alt konu ve mesaj olarak gönder. Kayıt doğrudan moderasyon kuyruğuna düşer.</p>
+          <p>Talebini konu, alt konu ve mesaj olarak gönder. En kısa sürede incelenir.</p>
         </div>
         <button class="close-modal" type="button" id="closeContact" aria-label="İletişim popup kapat">×</button>
       </div>
@@ -2101,7 +2101,7 @@
     async function loadApprovedEntriesFromSupabase(){
       if(!approvedEntriesEl) return;
       if(!supa){
-        approvedEntriesEl.innerHTML = `<div class="notice">Supabase bağlantısı yok.</div>`;
+        approvedEntriesEl.innerHTML = `<div class="notice">Yorumlar şu anda yüklenemiyor.</div>`;
         return;
       }
 
@@ -2114,7 +2114,7 @@
 
       if(error){
         console.error(error);
-        approvedEntriesEl.innerHTML = `<div class="notice">Yorumlar alınamadı. Supabase RLS select policy kontrol edilmeli.</div>`;
+        approvedEntriesEl.innerHTML = `<div class="notice">Yorumlar şu anda yüklenemiyor. Lütfen daha sonra tekrar dene.</div>`;
         return;
       }
 
@@ -2148,7 +2148,7 @@
 
       if(error){
         console.warn("Maaş verisi Supabase'den alınamadı", error);
-        showToast("Supabase maaş verileri alınamadı; yerel örnek veriler gösteriliyor.");
+        showToast("Maaş verileri şu anda güncellenemiyor; örnek veriler gösteriliyor.");
         return;
       }
 
@@ -2525,7 +2525,7 @@
       }
 
       if(!supa){
-        showToast("Supabase bilgileri henüz girilmemiş. index.html içindeki ARCHILEAKS_CONFIG alanını doldur.");
+        showToast("Bağlantı kurulamadı. Lütfen daha sonra tekrar dene.");
         return;
       }
 
@@ -2548,12 +2548,12 @@
 
       if(error){
         console.error(error);
-        showToast("yorum Supabase'e kaydedilemedi. RLS/policy veya bağlantı ayarını kontrol et.");
+        showToast("Yorum gönderilemedi. Lütfen daha sonra tekrar dene.");
         return;
       }
 
       await auditSubmission("entry", data.id, payload);
-      showToast("entry Supabase'e kaydedildi ve moderasyon kuyruğuna alındı.");
+      showToast("Yorumun alındı. İncelemeden sonra yayınlanacak.");
       form.reset();
       renderSelect();
       if(employerSelect) employerSelect.value = state.current[0];
@@ -2603,7 +2603,7 @@
         }
 
         if(!supa){
-          showToast("Supabase bilgileri henüz girilmemiş. index.html içindeki ARCHILEAKS_CONFIG alanını doldur.");
+          showToast("Bağlantı kurulamadı. Lütfen daha sonra tekrar dene.");
           return;
         }
 
@@ -2639,7 +2639,7 @@
 
         if(error){
           console.error(error);
-          showToast("maaş verisi Supabase'e kaydedilemedi. RLS/policy veya bağlantı ayarını kontrol et.");
+          showToast("Maaş verisi gönderilemedi. Lütfen daha sonra tekrar dene.");
           return;
         }
 
@@ -2650,7 +2650,7 @@
         renderSelect();
         toggleCustomSalaryFields();
         renderSalaryData();
-        showToast("maaş verisi Supabase'e kaydedildi ve moderasyon kuyruğuna alındı.");
+        showToast("Maaş verin alındı. İncelemeden sonra yayınlanacak.");
       });
     }
 
@@ -2884,7 +2884,7 @@
       contactForm.reset();
       populateContactSubtopics();
       setContactStatus("success", "Mesajınız alındı. Teşekkürler.");
-      showToast("iletişim mesajı kaydedildi.");
+      showToast("Mesajınız alındı. Teşekkürler.");
     }
 
     function attachCookiePreferenceHandlers(){
@@ -2898,7 +2898,7 @@
       const reject = $("rejectCookiePrefs");
       if(save) save.onclick = ()=>{
         localStorage.setItem("archileaks_cookie_preferences", JSON.stringify({ analytics: Boolean(analytics && analytics.checked), ads: Boolean(ads && ads.checked), savedAt: new Date().toISOString() }));
-        showToast("çerez tercihleri kaydedildi.");
+        showToast("Çerez tercihleriniz kaydedildi.");
         closeFooterInfoModal();
       };
       if(reject) reject.onclick = ()=>{
@@ -3082,7 +3082,7 @@
         }
 
         if(!supa){
-          setError(registerError, "Supabase bağlantısı yapılandırılmamış. ARCHILEAKS_CONFIG alanını doldur.");
+          setError(registerError, "Bağlantı kurulamadı. Lütfen daha sonra tekrar dene.");
           return;
         }
 
@@ -3104,10 +3104,10 @@
         authState.verified = Boolean(data.session);
         authState.loggedIn = Boolean(data.session);
 
-        setSuccess(registerSuccess, "Kayıt isteği Supabase'e gönderildi. Mailinize gönderilen link ile hesabınızı doğrulayın ve sonra giriş yapın.");
+        setSuccess(registerSuccess, "Mailinize gönderilen link ile hesabınızı doğrulayın ve sonra giriş yapın.");
         const mailConfirmInfo = $("mailConfirmInfo");
         if(mailConfirmInfo) mailConfirmInfo.classList.add("show");
-        showToast("kayıt alındı; doğrulama linki mailine gönderildi.");
+        showToast("Doğrulama linki mailine gönderildi.");
         setAuthMode("login");
         $("loginEmail").value = email;
         updateSalaryAccess();
@@ -3123,7 +3123,7 @@
         const password = $("loginPassword").value;
 
         if(!supa){
-          setError(loginError, "Supabase bağlantısı yapılandırılmamış. ARCHILEAKS_CONFIG alanını doldur.");
+          setError(loginError, "Bağlantı kurulamadı. Lütfen daha sonra tekrar dene.");
           return;
         }
 
