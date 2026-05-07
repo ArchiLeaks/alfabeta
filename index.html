@@ -594,6 +594,16 @@
     }
     .mini-list li:first-child{border-top:0}
 
+    .approved-entry-panel{
+      margin:18px 0 0;
+    }
+
+    .approved-entry-panel h2{
+      margin:0 0 12px;
+      font-size:18px;
+      color:#222;
+    }
+
     .form-panel{
       background:#f8f8f3;
       border:1px solid #dfdfd8;
@@ -1336,6 +1346,13 @@
           </div>
         </article>
 
+        <section class="approved-entry-panel" aria-label="Onaylanmış kullanıcı yorumları">
+          <h2>onaylanmış yorumlar</h2>
+          <div id="approvedEntries">
+            <div class="notice">Onaylanmış yorumlar yükleniyor.</div>
+          </div>
+        </section>
+
         <section class="form-panel" id="yaz">
           <h2>entry gir</h2>
           <form class="form-grid" id="entryForm">
@@ -1716,6 +1733,8 @@
     const salaryLoginWarning=$("salaryLoginWarning"), salaryLoginButton=$("salaryLoginButton"), salaryBackButton=$("salaryBackButton");
     const salaryFilterEmployer=$("salaryFilterEmployer"), salaryFilterPosition=$("salaryFilterPosition"), salaryFilterCity=$("salaryFilterCity"), salaryFilterWorkType=$("salaryFilterWorkType"), salarySort=$("salarySort"), salaryResetFilters=$("salaryResetFilters");
     const salaryTotalCount=$("salaryTotalCount"), salaryAvgNet=$("salaryAvgNet"), salaryMaxNet=$("salaryMaxNet");
+    const approvedEntriesEl=$("approvedEntries");
+    const approvedEntriesData=[];
 
     function norm(x){ return String(x||"").toLocaleLowerCase("tr-TR").trim(); }
 
@@ -1728,6 +1747,75 @@
       const { data, error } = await supa.auth.getSession();
       if(error) console.warn("Supabase session okunamadı", error);
       return data && data.session ? data.session : null;
+    }
+
+
+    function escapeHtml(value){
+      return String(value || "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+    }
+
+    function formatEntryDate(value){
+      if(!value) return "";
+      try{
+        return new Date(value).toLocaleDateString("tr-TR", { year:"numeric", month:"2-digit", day:"2-digit" });
+      }catch(err){
+        return "";
+      }
+    }
+
+    function renderApprovedEntries(){
+      if(!approvedEntriesEl || !state.current) return;
+      const currentEmployer = norm(state.current[0]);
+      const list = approvedEntriesData.filter(row=>norm(row.employer_name) === currentEmployer);
+
+      if(!list.length){
+        approvedEntriesEl.innerHTML = `<div class="notice">Bu firma için henüz onaylanmış kullanıcı yorumu yok.</div>`;
+        return;
+      }
+
+      approvedEntriesEl.innerHTML = list.map(row=>{
+        const text = row.content_moderated || row.body || "";
+        return `
+          <article class="entry">
+            <div class="entry-text"><p>${escapeHtml(text)}</p></div>
+            <div class="entry-meta">
+              <span class="author">anonim</span>
+              <span>${escapeHtml(formatEntryDate(row.created_at))}</span>
+              <span>pozisyon: ${escapeHtml(row.position_title || "-")}</span>
+              <span>ilişki: ${escapeHtml(row.relation_type || "-")}</span>
+              <span class="entry-tools"><button class="tool">iyi</button><button class="tool">kötü</button><button class="tool">şikayet</button></span>
+            </div>
+          </article>`;
+      }).join("");
+    }
+
+    async function loadApprovedEntriesFromSupabase(){
+      if(!approvedEntriesEl) return;
+      if(!supa){
+        approvedEntriesEl.innerHTML = `<div class="notice">Supabase bağlantısı yok.</div>`;
+        return;
+      }
+
+      const { data, error } = await supa
+        .from("entries")
+        .select("id, employer_name, position_title, relation_type, body, content_moderated, status, created_at")
+        .eq("status", "approved")
+        .order("created_at", { ascending:false })
+        .limit(100);
+
+      if(error){
+        console.error(error);
+        approvedEntriesEl.innerHTML = `<div class="notice">Onaylı yorumlar alınamadı. Supabase RLS select policy kontrol edilmeli.</div>`;
+        return;
+      }
+
+      approvedEntriesData.splice(0, approvedEntriesData.length, ...(Array.isArray(data) ? data : []));
+      renderApprovedEntries();
     }
 
     function mapSalaryReport(row){
@@ -1845,6 +1933,7 @@
       topicSub.textContent=`${e[1]} — ${e[2]} · başlık tipi: işveren deneyimi · ${e[4]} katkı adayı`;
       document.querySelectorAll(".mobile-topic").forEach(x=>x.classList.toggle("active", x.textContent.includes(e[0])));
       if(employerSelect) employerSelect.value=e[0];
+      renderApprovedEntries();
     }
 
     function renderSelect(){
@@ -2432,6 +2521,7 @@
 
     renderSelect();
     render();
+    loadApprovedEntriesFromSupabase();
     updateSalaryAccess();
     hydrateAuthFromSupabase();
     loadSalaryReportsFromSupabase();
