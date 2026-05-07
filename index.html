@@ -1563,7 +1563,7 @@
         </section>
 
         <div class="auth-note">
-          Prototip notu: Bu dosyada kayıt bilgisi tarayıcı içinde geçici olarak simüle edilir. Canlı üründe email kodu, şifre saklama ve oturum işlemleri Supabase Auth ile yapılmalı.
+          Supabase bağlantısı aktifse kayıt, giriş ve veri gönderimi Supabase Auth + Postgres üzerinden çalışır. Kod doğrulama ekranı için Supabase email OTP şablonunun token gönderecek şekilde ayarlanması gerekir.
         </div>
       </div>
     </div>
@@ -1616,7 +1616,20 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    const ARCHILEAKS_CONFIG = {
+      supabaseUrl: "https://YOUR_PROJECT_REF.supabase.co",
+      supabaseAnonKey: "YOUR_SUPABASE_ANON_KEY",
+      auditFunctionName: "capture-submission"
+    };
+
+    const supa = (ARCHILEAKS_CONFIG.supabaseUrl.includes("YOUR_PROJECT_REF") || ARCHILEAKS_CONFIG.supabaseAnonKey.includes("YOUR_SUPABASE_ANON_KEY"))
+      ? null
+      : window.supabase.createClient(ARCHILEAKS_CONFIG.supabaseUrl, ARCHILEAKS_CONFIG.supabaseAnonKey, {
+          auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+        });
+
     const employers = [
       ["enka inşaat","İstanbul","İnşaat / Taahhüt","construction",44],
       ["tabanlıoğlu architects","İstanbul","Mimarlık Ofisi","architecture",38],
@@ -1708,6 +1721,86 @@
     const salaryTotalCount=$("salaryTotalCount"), salaryAvgNet=$("salaryAvgNet"), salaryMaxNet=$("salaryMaxNet");
 
     function norm(x){ return String(x||"").toLocaleLowerCase("tr-TR").trim(); }
+
+    function supabaseConfigured(){
+      return Boolean(supa);
+    }
+
+    async function getCurrentSession(){
+      if(!supa) return null;
+      const { data, error } = await supa.auth.getSession();
+      if(error) console.warn("Supabase session okunamadı", error);
+      return data && data.session ? data.session : null;
+    }
+
+    function mapSalaryReport(row){
+      return {
+        id: row.id,
+        employer: row.employer_name,
+        position: row.position_title,
+        experience: row.experience_years ? `${row.experience_years} yıl` : "-",
+        city: row.city,
+        workType: row.work_type,
+        net: Number(row.net_salary_try || 0),
+        period: `${row.salary_year}-${String(row.salary_month).padStart(2,"0")}`,
+        benefits: row.benefits || "",
+        note: row.note || "",
+        source: row.status === "approved" ? "anonim" : "senin gönderimin"
+      };
+    }
+
+    async function loadSalaryReportsFromSupabase(){
+      if(!supa) return;
+      const { data, error } = await supa
+        .from("salary_reports")
+        .select("id, employer_name, position_title, experience_years, city, work_type, net_salary_try, salary_month, salary_year, benefits, note, status, created_at")
+        .order("created_at", { ascending:false })
+        .limit(100);
+
+      if(error){
+        console.warn("Maaş verisi Supabase'den alınamadı", error);
+        showToast("Supabase maaş verileri alınamadı; yerel örnek veriler gösteriliyor.");
+        return;
+      }
+
+      if(Array.isArray(data) && data.length){
+        salaryData.splice(0, salaryData.length, ...data.map(mapSalaryReport));
+        renderSalaryFilterOptions();
+        renderSalaryData();
+      }
+    }
+
+    async function auditSubmission(type, submissionId, payload){
+      if(!supa || !submissionId) return;
+      const session = await getCurrentSession();
+      const url = `${ARCHILEAKS_CONFIG.supabaseUrl}/functions/v1/${ARCHILEAKS_CONFIG.auditFunctionName}`;
+      try{
+        await fetch(url, {
+          method:"POST",
+          headers:{
+            "Content-Type":"application/json",
+            "apikey":ARCHILEAKS_CONFIG.supabaseAnonKey,
+            "Authorization": session ? `Bearer ${session.access_token}` : `Bearer ${ARCHILEAKS_CONFIG.supabaseAnonKey}`
+          },
+          body: JSON.stringify({
+            submission_type:type,
+            submission_id:submissionId,
+            path: location.pathname + location.hash,
+            payload
+          })
+        });
+      }catch(err){
+        console.warn("Audit/IP kaydı Edge Function'a gönderilemedi", err);
+      }
+    }
+
+    async function ensureEmployerAndPosition(employerName, positionTitle){
+      if(!supa) return;
+      const employerPayload = { name: employerName };
+      const positionPayload = { title: positionTitle };
+      await supa.from("employers").upsert(employerPayload, { onConflict:"name", ignoreDuplicates:false });
+      await supa.from("positions").upsert(positionPayload, { onConflict:"title", ignoreDuplicates:false });
+    }
 
     function filtered(){
       const q=norm(state.query);
@@ -1972,10 +2065,58 @@
       openHomePage("gundem");
     });
 
-    $("entryForm").addEventListener("submit",e=>{
+    $("entryForm").addEventListener("submit", async e=>{
       e.preventDefault();
-      showToast("prototip: canlı sürümde entry moderasyon kuyruğuna gönderilecek.");
-      e.target.reset();
+
+      if(!authState.loggedIn){
+        showToast("entry göndermek için önce giriş yapmalısın.");
+        openAuthModal();
+        return;
+      }
+
+      const form = e.target;
+      const employerName = form.querySelector("#employerSelect").value;
+      const positionTitle = form.querySelectorAll("select")[1].value;
+      const relationType = form.querySelectorAll("select")[2].value;
+      const body = form.querySelector("textarea").value.trim();
+      const rulesAccepted = form.querySelector('input[type="checkbox"]').checked;
+
+      if(!body || !rulesAccepted){
+        showToast("yorum metni ve kural onayı zorunlu.");
+        return;
+      }
+
+      if(!supa){
+        showToast("Supabase bilgileri henüz girilmemiş. index.html içindeki ARCHILEAKS_CONFIG alanını doldur.");
+        return;
+      }
+
+      await ensureEmployerAndPosition(employerName, positionTitle);
+
+      const payload = {
+        employer_name: employerName,
+        position_title: positionTitle,
+        relation_type: relationType,
+        body,
+        rules_accepted: rulesAccepted,
+        status: "pending"
+      };
+
+      const { data, error } = await supa
+        .from("entries")
+        .insert(payload)
+        .select("id")
+        .single();
+
+      if(error){
+        console.error(error);
+        showToast("yorum Supabase'e kaydedilemedi. RLS/policy veya bağlantı ayarını kontrol et.");
+        return;
+      }
+
+      await auditSubmission("entry", data.id, payload);
+      showToast("entry Supabase'e kaydedildi ve moderasyon kuyruğuna alındı.");
+      form.reset();
     });
 
     if(salaryEmployer) salaryEmployer.addEventListener("change", toggleCustomSalaryFields);
@@ -1996,7 +2137,7 @@
     if(salaryLoginButton) salaryLoginButton.addEventListener("click", openAuthModal);
 
     if(salaryForm){
-      salaryForm.addEventListener("submit", e=>{
+      salaryForm.addEventListener("submit", async e=>{
         e.preventDefault();
 
         if(!authState.loggedIn){
@@ -2020,6 +2161,11 @@
           return;
         }
 
+        if(!supa){
+          showToast("Supabase bilgileri henüz girilmemiş. index.html içindeki ARCHILEAKS_CONFIG alanını doldur.");
+          return;
+        }
+
         if(selectedEmployer === "__new__" && !customSalaryEmployers.some(name=>norm(name) === norm(employer))){
           customSalaryEmployers.push(employer);
         }
@@ -2028,24 +2174,42 @@
           customSalaryPositions.push(position);
         }
 
-        salaryData.unshift({
-          employer,
-          position,
-          experience: $("salaryExperience").value,
+        await ensureEmployerAndPosition(employer, position);
+
+        const payload = {
+          employer_name: employer,
+          position_title: position,
+          experience_years: parseInt($("salaryExperience").value, 10),
           city: $("salaryCity").value,
-          workType: $("salaryWorkType").value,
-          net: Number($("salaryNet").value),
-          period: `${$("salaryYear").value}-${$("salaryMonth").value}`,
+          work_type: $("salaryWorkType").value,
+          net_salary_try: Number($("salaryNet").value),
+          salary_month: Number($("salaryMonth").value),
+          salary_year: Number($("salaryYear").value),
           benefits: $("salaryBenefits").value.trim(),
           note: $("salaryComment").value.trim(),
-          source: authState.nickname || "giriş yapan kullanıcı"
-        });
+          status: "pending"
+        };
 
+        const { data, error } = await supa
+          .from("salary_reports")
+          .insert(payload)
+          .select("id, employer_name, position_title, experience_years, city, work_type, net_salary_try, salary_month, salary_year, benefits, note, status, created_at")
+          .single();
+
+        if(error){
+          console.error(error);
+          showToast("maaş verisi Supabase'e kaydedilemedi. RLS/policy veya bağlantı ayarını kontrol et.");
+          return;
+        }
+
+        await auditSubmission("salary_report", data.id, payload);
+
+        salaryData.unshift(mapSalaryReport(data));
         salaryForm.reset();
         renderSelect();
         toggleCustomSalaryFields();
         renderSalaryData();
-        showToast("maaş verisi eklendi; canlı sürümde moderasyon ve n ≥ 5 eşiğine bağlanacak.");
+        showToast("maaş verisi Supabase'e kaydedildi ve moderasyon kuyruğuna alındı.");
       });
     }
 
@@ -2105,6 +2269,7 @@
     const registerSuccess = $("registerSuccess");
 
     const authState = {
+      userId: "",
       registeredEmail: "",
       registeredPassword: "",
       nickname: "",
@@ -2164,7 +2329,7 @@
     });
 
     if(registerForm){
-      registerForm.addEventListener("submit", e=>{
+      registerForm.addEventListener("submit", async e=>{
         e.preventDefault();
         setError(registerError, "");
         setSuccess(registerSuccess, "");
@@ -2189,81 +2354,129 @@
           return;
         }
 
+        if(!supa){
+          setError(registerError, "Supabase bağlantısı yapılandırılmamış. ARCHILEAKS_CONFIG alanını doldur.");
+          return;
+        }
+
+        const { data, error } = await supa.auth.signUp({
+          email,
+          password,
+          options:{ data:{ nickname } }
+        });
+
+        if(error){
+          setError(registerError, error.message || "Kayıt oluşturulamadı.");
+          return;
+        }
+
         authState.registeredEmail = email;
-        authState.registeredPassword = password;
+        authState.registeredPassword = "";
         authState.nickname = nickname;
-        authState.verificationCode = createFakeVerificationCode();
-        authState.verified = false;
+        authState.userId = data.user ? data.user.id : "";
+        authState.verified = Boolean(data.session);
+        authState.loggedIn = Boolean(data.session);
 
         $("verifyForm").classList.add("show");
-        setSuccess(registerSuccess, `Doğrulama kodu mailine gönderildi gibi simüle edildi. Prototip kodu: ${authState.verificationCode}`);
-        showToast("kayıt alındı; mail doğrulama kodu onaylanmalı.");
+        setSuccess(registerSuccess, "Kayıt isteği Supabase'e gönderildi. Supabase email ayarına göre doğrulama linki veya OTP kodu mailine gelir. Kod geldiyse aşağıya gir; link geldiyse maildeki linke tıkla.");
+        showToast("kayıt alındı; email doğrulaması bekleniyor.");
+        updateSalaryAccess();
       });
     }
 
     if(verifyForm){
-      verifyForm.addEventListener("submit", e=>{
+      verifyForm.addEventListener("submit", async e=>{
         e.preventDefault();
         setError(registerError, "");
 
         const code = $("verifyCode").value.trim();
+        const email = authState.registeredEmail || $("registerEmail").value.trim().toLocaleLowerCase("tr-TR");
 
-        if(!authState.verificationCode){
-          setError(registerError, "Önce kayıt formunu doldurup doğrulama kodu iste.");
+        if(!supa){
+          setError(registerError, "Supabase bağlantısı yapılandırılmamış.");
           return;
         }
 
-        if(code !== authState.verificationCode){
-          setError(registerError, "Doğrulama kodu hatalı.");
+        if(!email || !code){
+          setError(registerError, "Email ve doğrulama kodu gerekli.");
           return;
         }
 
+        const { data, error } = await supa.auth.verifyOtp({ email, token: code, type: "signup" });
+
+        if(error){
+          setError(registerError, "Kod doğrulanamadı. Supabase email şablonun link gönderiyorsa kod yerine maildeki linki kullanman gerekir.");
+          return;
+        }
+
+        const user = data.user || (data.session && data.session.user);
+        authState.userId = user ? user.id : authState.userId;
         authState.verified = true;
+        authState.loggedIn = Boolean(data.session);
         setSuccess(registerSuccess, "Email doğrulandı. Artık giriş yapabilirsin.");
         showToast("email doğrulandı; giriş yapabilirsin.");
         setAuthMode("login");
-        $("loginEmail").value = authState.registeredEmail;
+        $("loginEmail").value = email;
         $("loginPassword").focus();
+        updateSalaryAccess();
       });
     }
 
     if(loginForm){
-      loginForm.addEventListener("submit", e=>{
+      loginForm.addEventListener("submit", async e=>{
         e.preventDefault();
         setError(loginError, "");
 
         const email = $("loginEmail").value.trim().toLocaleLowerCase("tr-TR");
         const password = $("loginPassword").value;
 
-        if(!authState.registeredEmail){
-          setError(loginError, "Önce kayıt olmalısın.");
-          setAuthMode("register");
+        if(!supa){
+          setError(loginError, "Supabase bağlantısı yapılandırılmamış. ARCHILEAKS_CONFIG alanını doldur.");
           return;
         }
 
-        if(email !== authState.registeredEmail || password !== authState.registeredPassword){
-          setError(loginError, "Email veya şifre hatalı.");
+        const { data, error } = await supa.auth.signInWithPassword({ email, password });
+
+        if(error){
+          setError(loginError, error.message || "Email veya şifre hatalı.");
           return;
         }
 
-        if(!authState.verified){
-          setError(loginError, "Email doğrulama kodu onaylanmadan giriş yapılamaz.");
-          setAuthMode("register");
-          $("verifyForm").classList.add("show");
-          return;
-        }
-
+        const user = data.user;
+        authState.userId = user.id;
+        authState.registeredEmail = email;
+        authState.nickname = user.user_metadata && user.user_metadata.nickname ? user.user_metadata.nickname : email.split("@")[0];
+        authState.verified = true;
         authState.loggedIn = true;
+
         if(openLogin) openLogin.textContent = authState.nickname;
         closeAuthModal();
         updateSalaryAccess();
+        await loadSalaryReportsFromSupabase();
         showToast(`${authState.nickname} olarak giriş yapıldı.`);
       });
+    }
+
+    async function hydrateAuthFromSupabase(){
+      if(!supa) return;
+      const session = await getCurrentSession();
+      if(!session || !session.user) return;
+      const user = session.user;
+      authState.userId = user.id;
+      authState.registeredEmail = user.email || "";
+      authState.nickname = user.user_metadata && user.user_metadata.nickname ? user.user_metadata.nickname : (user.email || "kullanıcı").split("@")[0];
+      authState.verified = true;
+      authState.loggedIn = true;
+      if(openLogin) openLogin.textContent = authState.nickname;
+      updateSalaryAccess();
+      await loadSalaryReportsFromSupabase();
     }
 
     renderSelect();
     render();
     updateSalaryAccess();
+    hydrateAuthFromSupabase();
+    loadSalaryReportsFromSupabase();
     if(window.location.hash === "#salaryPage") openSalaryPage();
   </script>
 </body>
