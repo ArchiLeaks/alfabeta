@@ -744,6 +744,18 @@
       overflow:hidden;
     }
 
+    .rules-modal{
+      width:min(100%,760px);
+      max-height:calc(100vh - 36px);
+      display:flex;
+      flex-direction:column;
+    }
+
+    .rules-modal .auth-body{
+      overflow:auto;
+      padding:16px 18px 18px;
+    }
+
     .auth-head{
       display:flex;
       align-items:flex-start;
@@ -1165,33 +1177,74 @@
 
     .rules-content{
       display:grid;
-      gap:10px;
+      gap:14px;
       color:#444;
       font-size:13px;
     }
 
     .rules-content h3{
-      margin:0;
+      margin:0 0 8px;
       color:#222;
       font-size:15px;
+      letter-spacing:-.01em;
     }
 
-    .rules-content ul{
+    .rules-section{
+      border:1px solid #e5e2d8;
+      border-radius:10px;
+      background:#fffdfa;
+      padding:12px;
+    }
+
+    .rule-list{
+      display:grid;
+      gap:10px;
       margin:0;
-      padding-left:18px;
+      padding:0;
+      list-style:none;
     }
 
-    .rules-content li{
-      margin:6px 0;
+    .rule-list li{
+      margin:0;
+      padding:0 0 10px;
+      border-bottom:1px solid #efede5;
+    }
+
+    .rule-list li:last-child{
+      border-bottom:0;
+      padding-bottom:0;
+    }
+
+    .rule-main{
+      display:block;
+      color:#333;
+      font-weight:800;
+    }
+
+    .rule-example{
+      display:block;
+      margin-top:3px;
+      color:#6f6f6f;
+      font-size:12px;
+      line-height:1.42;
     }
 
     .rules-warning{
       background:#fff6d8;
       border:1px solid #f0d783;
-      border-radius:8px;
-      padding:10px;
+      border-radius:10px;
+      padding:11px 12px;
       color:#5c4b10;
       font-weight:750;
+    }
+
+    .rules-motto{
+      background:#2b2b2b;
+      color:#fff;
+      border-radius:10px;
+      padding:11px 12px;
+      font-weight:900;
+      text-align:center;
     }
 
 
@@ -1575,7 +1628,7 @@
 
 
   <div class="modal-backdrop" id="rulesModal" role="dialog" aria-modal="true" aria-labelledby="rulesTitle">
-    <div class="auth-modal">
+    <div class="auth-modal rules-modal">
       <div class="auth-head">
         <div>
           <h2 id="rulesTitle">yorum yazma kuralları</h2>
@@ -1587,32 +1640,84 @@
       <div class="auth-body">
         <div class="rules-content">
           <div class="rules-warning">
-            Yorumumun hukuki sorumluluğunun bana ait olduğunu, yorumun incelemeye alınacağını ve hakaret, suçlama, kişi adı, ifşa veya özel bilgi içerirse silinebileceğini kabul ediyorum.
+            Yorumun hukuki sorumluluğu sana aittir. Kişi adı, özel bilgi, hedef gösterme veya doğrulanması mümkün olmayan ağır iddia içeren yorumlar yayınlanmaz.
           </div>
 
-          <h3>yayınlanmayacak içerikler</h3>
-          <ul>
-            <li>Kişi adı, soyadı, telefon, email, adres veya özel bilgi.</li>
-            <li>Hakaret, aşağılama, küfür veya hedef gösterme.</li>
-            <li>Belgesiz suç isnadı veya ağır iddia.</li>
-            <li>Şirket içi gizli belge, sözleşme, ücret bordrosu veya ekran görüntüsü ifşası.</li>
-            <li>Irk, din, cinsiyet, sağlık, siyasi görüş gibi hassas kişisel veriler.</li>
-          </ul>
+          <section class="rules-section">
+            <h3>yayınlanmayacak içerikler</h3>
+            <ul class="rule-list">
+              <li>
+                <span class="rule-main">Kişi adı, soyadı, telefon, email, adres veya özel bilgi paylaşma.</span>
+                <span class="rule-example">Örnek: “X isimli proje müdürü şöyle yaptı” yerine “Proje yönetimi tarafında iletişim zayıftı” yaz.</span>
+              </li>
+              <li>
+                <span class="rule-main">Bir kişiyi hedef alan aşağılayıcı, küçük düşürücü veya saldırgan ifadeler kullanma.</span>
+                <span class="rule-example">Örnek: “Şu kişi çok kötüydü” yerine “Ekip içi iletişimde sorunlar yaşadım” yaz.</span>
+              </li>
+              <li>
+                <span class="rule-main">Kanıtlanması mümkün olmayan ağır iddiaları kesin bilgi gibi yazma.</span>
+                <span class="rule-example">Örnek: “Maaşları bilerek ödemiyorlar” yerine “Benim dönemimde ödeme takviminde gecikmeler yaşandı” yaz.</span>
+              </li>
+              <li>
+                <span class="rule-main">Şirket içi gizli belge, sözleşme, bordro veya ekran görüntüsü paylaşma.</span>
+                <span class="rule-example">Örnek: “Sözleşmemde şu madde vardı” yerine “Sözleşme koşulları benim beklentimi karşılamadı” yaz.</span>
+              </li>
+              <li>
+                <span class="rule-main">Irk, din, cinsiyet, sağlık, siyasi görüş gibi hassas kişisel bilgilere girme.</span>
+                <span class="rule-example">Örnek: “Şu gruba karşı tavır vardı” yerine “Ofis kültürünün kapsayıcı olmadığını hissettim” yaz.</span>
+              </li>
+            </ul>
+          </section>
 
-          <h3>doğru yorum formatı</h3>
-          <ul>
-            <li>Deneyimini pozisyon, dönem ve çalışma biçimi üzerinden anlat.</li>
-            <li>Kişileri değil, süreçleri ve çalışma koşullarını tarif et.</li>
-            <li>Maaş, mesai, izin, öğrenme imkanı ve ofis kültürünü ayrı ayrı belirt.</li>
-            <li>Net olmayan iddiaları kesin gerçek gibi yazma.</li>
-          </ul>
+          <section class="rules-section">
+            <h3>doğru yorum formatı</h3>
+            <ul class="rule-list">
+              <li>
+                <span class="rule-main">Deneyimini pozisyon, dönem ve çalışma biçimi üzerinden anlat.</span>
+                <span class="rule-example">Örnek: “2024’te teknik ofis mimarı olarak full time çalıştım. Yoğunluk dönemlere göre değişiyordu.”</span>
+              </li>
+              <li>
+                <span class="rule-main">Kişilere değil; süreçlere, çalışma düzenine ve ofis kültürüne odaklan.</span>
+                <span class="rule-example">Örnek: “Revizyon süreçleri plansız ilerliyordu ve teslim haftalarında mesai artıyordu.”</span>
+              </li>
+              <li>
+                <span class="rule-main">Maaş, mesai, izin, öğrenme imkanı ve portfolyoya katkı gibi konuları ayrı ayrı yaz.</span>
+                <span class="rule-example">Örnek: “Maaş piyasa ortalamasına yakındı. Mesai yoğundu. Portfolyo açısından büyük ölçekli proje deneyimi kazandırdı.”</span>
+              </li>
+              <li>
+                <span class="rule-main">Emin olmadığın şeyleri kesin gerçek gibi değil, kendi deneyimin olarak aktar.</span>
+                <span class="rule-example">Örnek: “Benim çalıştığım ekipte terfi süreci net değildi” yaz; “Bu şirkette kimse terfi edemez” yazma.</span>
+              </li>
+              <li>
+                <span class="rule-main">Kısa, net ve işe yarar yaz. Dedikodu değil, veri bırak.</span>
+                <span class="rule-example">Örnek: “3-5 yıl deneyimli mimarlar için iş yükü yüksek, ama proje ölçeği öğretici.”</span>
+              </li>
+            </ul>
+          </section>
 
-          <h3>moderasyon</h3>
-          <ul>
-            <li>Yorumlar doğrudan yayınlanmaz; önce incelemeye düşer.</li>
-            <li>Gerekirse yorum reddedilir, kısaltılır veya kullanıcıdan düzenleme istenir.</li>
-            <li>Skor ve istatistikler en az 5 doğrulanmış katkıdan sonra gösterilir.</li>
-          </ul>
+          <section class="rules-section">
+            <h3>moderasyon</h3>
+            <ul class="rule-list">
+              <li>
+                <span class="rule-main">Yorumlar önce kontrol edilir, sonra yayınlanır.</span>
+                <span class="rule-example">Örnek: Kişi adı veya özel bilgi varsa yorum yayına alınmadan önce temizlenir.</span>
+              </li>
+              <li>
+                <span class="rule-main">Gerekirse yorum kısaltılır, düzenleme istenir veya yayınlanmaz.</span>
+                <span class="rule-example">Örnek: Deneyim anlatan bölüm korunur; hedef gösteren veya özel bilgi içeren bölüm çıkarılır.</span>
+              </li>
+              <li>
+                <span class="rule-main">Amaç sansür değil; platformu güvenli, okunabilir ve işe yarar tutmak.</span>
+                <span class="rule-example">Örnek: “Mesai sistemi düzensizdi” yayınlanabilir; kişisel saldırı içeren ifadeler yayınlanmaz.</span>
+              </li>
+              <li>
+                <span class="rule-main">Skor ve istatistikler en az 5 doğrulanmış katkıdan sonra gösterilir.</span>
+                <span class="rule-example">Örnek: Bir firma için 2 maaş girdisi varsa veri saklanır ama ortalama maaş hemen gösterilmez.</span>
+              </li>
+            </ul>
+          </section>
+
+          <div class="rules-motto">Kural basit: kişiyi değil sistemi anlat. Dedikodu değil deneyim bırak.</div>
         </div>
       </div>
     </div>
