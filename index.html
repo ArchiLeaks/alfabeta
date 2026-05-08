@@ -1752,7 +1752,7 @@
             <div class="auth-success" id="registerSuccess"></div>
 
             <label class="auth-label" for="registerNickname">rumuz</label>
-            <input class="auth-input" id="registerNickname" type="text" placeholder="ör: anonim_mimar" autocomplete="nickname" minlength="3" required />
+            <input class="auth-input" id="registerNickname" type="text" placeholder="ör: beton_kusuru" autocomplete="nickname" minlength="3" maxlength="24" pattern="[A-Za-z0-9ğüşöçıİĞÜŞÖÇ_-]{3,24}" required />
 
             <label class="auth-label" for="registerEmail">email</label>
             <input class="auth-input" id="registerEmail" type="email" placeholder="ornek@mail.com" autocomplete="email" required />
@@ -2146,7 +2146,7 @@
 
       const { data, error } = await supa
         .from("entries")
-        .select("id, employer_name, position_title, relation_type, body, content_moderated, status, created_at")
+        .select("id, employer_name, position_title, relation_type, author_name, body, content_moderated, status, created_at")
         .eq("status", "approved")
         .order("created_at", { ascending:false })
         .limit(1000);
@@ -2593,6 +2593,7 @@
         employer_name: employerName,
         position_title: positionTitle,
         relation_type: relationType,
+        author_name: authState.nickname || "kullanıcı",
         body,
         rules_accepted: rulesAccepted,
         status: "pending"
@@ -3086,6 +3087,60 @@
       el.classList.toggle("show", Boolean(message));
     }
 
+    const RESERVED_NICKNAME_PATTERNS = [
+      /^anonim(?:[_-].*)?$/i,
+      /^anonymous(?:[_-].*)?$/i,
+      /^isimsiz(?:[_-].*)?$/i,
+      /^kullanici(?:[_-].*)?$/i,
+      /^user\d*$/i,
+      /^admin(?:[_-].*)?$/i,
+      /^moderator(?:[_-].*)?$/i,
+      /^mod(?:[_-].*)?$/i,
+      /^archileaks(?:[_-].*)?$/i
+    ];
+
+    function normalizeNickname(value){
+      return String(value || "")
+        .trim()
+        .replace(/\s+/g,"_")
+        .toLocaleLowerCase("tr-TR");
+    }
+
+    function validateNickname(rawNickname){
+      const nickname = normalizeNickname(rawNickname);
+
+      if(nickname.length < 3 || nickname.length > 24){
+        return { ok:false, nickname, message:"Rumuz 3-24 karakter arasında olmalı." };
+      }
+
+      if(!/^[a-z0-9ğüşöçı_-]+$/i.test(nickname)){
+        return { ok:false, nickname, message:"Rumuz sadece harf, rakam, alt çizgi veya tire içerebilir." };
+      }
+
+      if(RESERVED_NICKNAME_PATTERNS.some(pattern=>pattern.test(nickname))){
+        return { ok:false, nickname, message:"Bu rumuz kullanılamaz. ‘anonim’, ‘admin’, ‘user’ gibi jenerik rumuzlar kapalı." };
+      }
+
+      return { ok:true, nickname, message:"" };
+    }
+
+    async function isNicknameAvailable(nickname){
+      if(!supa) return { ok:false, available:false, message:"Bağlantı kurulamadı. Lütfen daha sonra tekrar dene." };
+
+      const { data, error } = await supa
+        .from("profiles")
+        .select("id")
+        .eq("nickname_lower", nickname)
+        .maybeSingle();
+
+      if(error){
+        console.error(error);
+        return { ok:false, available:false, message:"Rumuz kontrolü yapılamadı. Supabase profiles tablosu/RLS ayarını kontrol et." };
+      }
+
+      return { ok:true, available:!data, message:data ? "Bu rumuz alınmış. Başka bir rumuz seç." : "" };
+    }
+
     function openAuthModal(){
       loginModal.classList.add("show");
       setTimeout(()=>$("loginEmail").focus(),50);
@@ -3119,13 +3174,15 @@
         setError(registerError, "");
         setSuccess(registerSuccess, "");
 
-        const nickname = $("registerNickname").value.trim();
+        const nicknameValidation = validateNickname($("registerNickname").value);
+        const nickname = nicknameValidation.nickname;
+        $("registerNickname").value = nickname;
         const email = $("registerEmail").value.trim().toLocaleLowerCase("tr-TR");
         const password = $("registerPassword").value;
         const repeat = $("registerPasswordRepeat").value;
 
-        if(nickname.length < 3){
-          setError(registerError, "Rumuz en az 3 karakter olmalı.");
+        if(!nicknameValidation.ok){
+          setError(registerError, nicknameValidation.message);
           return;
         }
 
@@ -3144,6 +3201,12 @@
           return;
         }
 
+        const nicknameAvailability = await isNicknameAvailable(nickname);
+        if(!nicknameAvailability.ok || !nicknameAvailability.available){
+          setError(registerError, nicknameAvailability.message);
+          return;
+        }
+
         const { data, error } = await supa.auth.signUp({
           email,
           password,
@@ -3151,7 +3214,12 @@
         });
 
         if(error){
-          setError(registerError, error.message || "Kayıt oluşturulamadı.");
+          const message = String(error.message || "");
+          if(message.toLocaleLowerCase("tr-TR").includes("nickname") || message.toLocaleLowerCase("tr-TR").includes("duplicate")){
+            setError(registerError, "Bu rumuz alınmış. Başka bir rumuz seç.");
+          }else{
+            setError(registerError, message || "Kayıt oluşturulamadı.");
+          }
           return;
         }
 
