@@ -500,21 +500,6 @@
       font-weight:800;
     }
 
-    .entry-tools{
-      margin-left:auto;
-      display:flex;
-      gap:8px;
-    }
-
-    .tool{
-      border:0;
-      background:transparent;
-      color:var(--muted);
-      padding:0;
-      font-size:12px;
-      font-weight:700;
-    }
-    .tool:hover{color:var(--accentDark)}
 
     .ad{
       border:1px dashed #d7d1ba;
@@ -2120,7 +2105,6 @@
               <span>${escapeHtml(formatEntryDate(row.created_at))}</span>
               <span>pozisyon: ${escapeHtml(row.position_title || "-")}</span>
               <span>ilişki: ${escapeHtml(row.relation_type || "-")}</span>
-              <span class="entry-tools"><button class="tool">iyi</button><button class="tool">kötü</button><button class="tool">şikayet</button></span>
             </div>
           </article>`;
       }).join("");
